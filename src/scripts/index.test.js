@@ -63,4 +63,8 @@ describe('Gameboard places ships on game board', () => {
   test('Board creates players ships', () => {
     expect(board.createPlayerShip().length).toBe(10);
   })
+  test('Board places ship of size 4 correctly', () => {
+    const markedLocation = [[0, 0], [0, 1], [0, 2], [0, 3]]
+    expect(board.placeShip().length).toBe(markedLocation.length);
+  })
 });
