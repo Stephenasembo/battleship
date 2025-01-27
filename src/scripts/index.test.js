@@ -44,7 +44,7 @@ describe('Gameboard works correctly', () => {
   test.skip('each row has 10 columns', () => {
     expect(board[0].length).toBe(10);
   })
-  test('board gets random location for ship', () => {
-    expect(board.getRandomLocation()).toBeLessThan(10);
+  test('board gets coordinates for ship', () => {
+    expect(board.getRandomLocation()).toEqual([4, 4]);
   })
 });
