@@ -59,12 +59,21 @@ function createBoard() {
   function placeShip() {
     const location = [0, 0];
     const markedLocation = [];
-    const row = location[0];
-    let initial = location[1];
-    for (let i = 0; i < 4; i += 1) {
-      board[row, initial] = 's';
-      markedLocation.push([row, initial]);
-      initial += 1;
+    let col = location[0];
+    let row = location[1];
+    // for (let i = 0; i < 4; i += 1) {
+    //   board[col, row] = 's';
+    //   markedLocation.push([col, row]);
+    //   row += 1;
+    // }
+    for (let i = 0; i < 2; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
+        board[col, row] = 's';
+        markedLocation.push([col, row]);
+        row += 1;
+      }
+      col += 1;
+      row = location[1];
     }
     return markedLocation;
   }
