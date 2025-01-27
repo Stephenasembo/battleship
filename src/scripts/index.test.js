@@ -38,11 +38,11 @@ describe('Gameboard works correctly', () => {
   beforeEach(() => {
     board = createBoard();
   })
-  test.skip('board has 10 rows', () => {
-    expect(board.length).toBe(10);
+  test('board has 10 rows', () => {
+    expect(board.board.length).toBe(10);
   })
-  test.skip('each row has 10 columns', () => {
-    expect(board[0].length).toBe(10);
+  test('each row has 10 columns', () => {
+    expect(board.board[0].length).toBe(10);
   })
   describe('board gets coordinates for ship', () => {
     test('Coordinates are within boundaries', () => {
