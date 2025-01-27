@@ -48,9 +48,9 @@ describe('Gameboard works correctly', () => {
     test('Coordinates are within boundaries', () => {
       const location = board.getRandomLocation();
       expect(location[0]).toBeLessThan(10);
-      expect(location[0]).toBeGreaterThan(0);
+      expect(location[0]).toBeGreaterThan(-1);
       expect(location[1]).toBeLessThan(10);
-      expect(location[1]).toBeGreaterThan(0);
+      expect(location[1]).toBeGreaterThan(-1);
     })
   })
 });
