@@ -66,15 +66,24 @@ function createBoard() {
     //   markedLocation.push([col, row]);
     //   row += 1;
     // }
-    for (let i = 0; i < 2; i += 1) {
-      for (let j = 0; j < 3; j += 1) {
-        board[col, row] = 's';
-        markedLocation.push([col, row]);
-        row += 1;
-      }
-      col += 1;
-      row = location[1];
-    }
+    // for (let i = 0; i < 2; i += 1) {
+    //   for (let j = 0; j < 3; j += 1) {
+    //     board[col, row] = 's';
+    //     markedLocation.push([col, row]);
+    //     row += 1;
+    //   }
+    //   col += 1;
+    //   row = location[1];
+    // }
+    // for (let i = 0; i < 3; i += 1) {
+    //   for (let j = 0; j < 2; j += 1) {
+    //     board[col, row] = 's';
+    //     markedLocation.push([col, row]);
+    //     row += 1;
+    //   }
+    //   col += 1;
+    //   row = location[1];
+    // }
     return markedLocation;
   }
 
