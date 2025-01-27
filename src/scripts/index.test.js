@@ -1,5 +1,10 @@
 import createBoard from './index';
 
+let board;
+
+beforeAll(() => {
+  board = createBoard();
+})
 class Ship {
   #hits = 0;
   constructor(length) {
@@ -78,5 +83,21 @@ describe('Gameboard places ships on game board', () => {
   test.skip('Board places 4 ships of size 1 correctly', () => {
     const markedLocation = [[0, 0], [0, 1], [0, 2], [0, 3]];
     expect(board.placeShip()).toEqual(markedLocation);
+  })
+});
+
+describe('Space available for ship', () => {
+  let location;
+  beforeEach(() => {
+    location = board.getRandomLocation();
+  })
+  test('Space available for size 4', () => {
+    expect(location[0]).toBeLessThan(7);
+  })
+  test('Space available for size 3', () => {
+    expect(location[0]).toBeLessThan(8);
+  })
+  test('Space available for size 2', () => {
+    expect(location[0]).toBeLessThan(9);
   })
 });
