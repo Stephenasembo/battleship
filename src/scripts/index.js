@@ -57,34 +57,45 @@ function createBoard() {
   }
 
   function placeShip() {
+    const shipsArr = createPlayerShip();
     const location = [0, 0];
     const markedLocation = new Set ();
     let col = location[0];
     let row = location[1];
-    for (let i = 0; i < 4; i += 1) {
-      board[col, row] = 's';
-      markedLocation.add([col, row]);
-      row += 1;
+    
+    for (let i = 0; i < shipsArr.length; i += 1) {
+      if (shipsArr[i].length === 4) {
+        for (let i = 0; i < 4; i += 1) {
+          board[col, row] = 's';
+          markedLocation.add([col, row]);
+          row += 1;    
+        }
+      }
+      if (shipsArr[i].length === 3) {
+        for (let j = 0; j < 3; j += 1) {
+          board[col, row] = 's';
+          markedLocation.add([col, row]);
+          row += 1;
+        }
+        col += 1;
+        row = location[1];
+      }
+      if (shipsArr[i].length === 2) {
+        for (let i = 0; i < 2; i += 1) {
+          board[col, row] = 's';
+          markedLocation.add([col, row]);
+          row += 1;
+        }
+        col += 1;
+        row = location[1];
+      }
+      if (shipsArr[i].length === 1) {
+        board[col, row] = 's';
+        markedLocation.add([col, row]);
+        row += 1;
+      }
     }
-    // for (let i = 0; i < 2; i += 1) {
-    //   for (let j = 0; j < 3; j += 1) {
-    //     board[col, row] = 's';
-    //     markedLocation.push([col, row]);
-    //     row += 1;
-    //   }
-    //   col += 1;
-    //   row = location[1];
-    // }
-    // for (let i = 0; i < 3; i += 1) {
-    //   for (let j = 0; j < 2; j += 1) {
-    //     board[col, row] = 's';
-    //     markedLocation.push([col, row]);
-    //     row += 1;
-    //   }
-    //   col += 1;
-    //   row = location[1];
-    // }
-    console.log(markedLocation);
+
     return [...markedLocation];
   }
 
