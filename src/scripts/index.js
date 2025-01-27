@@ -25,7 +25,13 @@ function createBoard() {
     }
     board.push(row);
   }
-  return board;
+
+  function getRandomLocation() {
+    const row = Math.floor((Math.random()) * 10);
+    const col = Math.floor((Math.random()) * 10); 
+    return [row, col];
+  }
+  return { board, getRandomLocation };
 }
 
 export default createBoard;
