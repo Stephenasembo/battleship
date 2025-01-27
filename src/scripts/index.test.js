@@ -54,3 +54,13 @@ describe('Gameboard works correctly', () => {
     })
   })
 });
+
+describe('Gameboard places ships on game board', () => {
+  let board;
+  beforeEach(() => {
+    board = createBoard();
+  })
+  test('Board creates players ships', () => {
+    expect(board.placeShip().length).toBe(10);
+  })
+});
