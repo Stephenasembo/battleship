@@ -31,7 +31,32 @@ function createBoard() {
     const col = Math.floor((Math.random()) * 10); 
     return [row, col];
   }
-  return { board, getRandomLocation };
+
+  function placeShip() {
+    let count = 0;
+    const playerShipArr = [];
+    do {
+      if (count === 0) {
+        const playerShip = new Ship(4);
+        playerShipArr.push(playerShip);
+      } else if (count < 3) {
+        const playerShip = new Ship(3);
+        playerShipArr.push(playerShip);
+      } else if (count < 6) {
+        const playerShip = new Ship(2);
+        playerShipArr.push(playerShip);
+      } else if (count >= 6) {
+        const playerShip = new Ship(1);
+        playerShipArr.push(playerShip);
+      }
+      count += 1;
+    }
+    while(count < 10);
+
+    return playerShipArr;
+  }
+
+  return { board, getRandomLocation, placeShip };
 }
 
 export default createBoard;
