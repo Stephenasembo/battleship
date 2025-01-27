@@ -66,5 +66,6 @@ describe('Gameboard places ships on game board', () => {
   test('Board places ship of size 4 correctly', () => {
     const markedLocation = [[0, 0], [0, 1], [0, 2], [0, 3]]
     expect(board.placeShip().length).toBe(markedLocation.length);
+    expect(board.placeShip()).toEqual(markedLocation);
   })
 });
