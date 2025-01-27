@@ -32,7 +32,7 @@ function createBoard() {
     return [row, col];
   }
 
-  function placeShip() {
+  function createPlayerShip() {
     let count = 0;
     const playerShipArr = [];
     do {
@@ -56,7 +56,7 @@ function createBoard() {
     return playerShipArr;
   }
 
-  return { board, getRandomLocation, placeShip };
+  return { board, getRandomLocation, createPlayerShip };
 }
 
 export default createBoard;

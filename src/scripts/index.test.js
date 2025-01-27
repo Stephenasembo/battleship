@@ -61,6 +61,6 @@ describe('Gameboard places ships on game board', () => {
     board = createBoard();
   })
   test('Board creates players ships', () => {
-    expect(board.placeShip().length).toBe(10);
+    expect(board.createPlayerShip().length).toBe(10);
   })
 });
