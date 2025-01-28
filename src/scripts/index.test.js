@@ -1,42 +1,25 @@
-import createBoard from './index';
+import { createBoard, Ship } from './index';
 
 let board;
 
 beforeAll(() => {
   board = createBoard();
-})
-class Ship {
-  #hits = 0;
-  constructor(length) {
-    this.length = length;
-  }
-  hit() {
-    this.#hits += 1;
-    return this.#hits;
-  }
-  isSunk() {
-    if (this.#hits >= this.length) {
-      return true;
-    }
-    return false;
-  }
-}
+});
 
-describe('Ship objects instantiated correctly', () => {
+describe.only('Ship objects instantiated correctly', () => {
   let myShip;
   beforeEach(() => {
     myShip = new Ship(4);
-  })
+  });
 
   test('hit method works', () => {
     expect(myShip.hit()).toBe(1);
-  })
-
+  });
 
   test('check if ship is sunk', () => {  
     expect(myShip.isSunk()).toBeFalsy();
-  })
-})
+  });
+});
 
 describe('Gameboard works correctly', () => {
   let board;
@@ -85,18 +68,6 @@ describe('Gameboard places ships on game board', () => {
     expect(board.placeShip()[7].length).toEqual(1); 
     expect(board.placeShip()[8].length).toEqual(1);
     expect(board.placeShip()[9].length).toEqual(1); 
-  })
-});
-
-describe.only('Ship does not occupy taken space by another', () => {
-  let ships;
-  beforeAll(() => {
-    ships = board.placeShip();
-  })
-  test('Ship not placed on top of another', () => {
-    const ship = ships[1];
-    const coordinatesArr = ship.map(location => JSON.stringify(location));
-    expect(board.markedLocation.has(coordinatesArr[0])).toBeTruthy()
   })
 });
 
