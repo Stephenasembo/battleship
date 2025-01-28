@@ -68,7 +68,8 @@ function createBoard() {
     let row = location[1];
     for (let i = 0; i < size; i += 1) {
       ship.push([col, row]);
-      markedLocation.add([col, row]);
+      const coordinates = JSON.stringify([col, row]);
+      markedLocation.add(coordinates);
       row += 1;
     }
     return ship;

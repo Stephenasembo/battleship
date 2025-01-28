@@ -88,6 +88,18 @@ describe('Gameboard places ships on game board', () => {
   })
 });
 
+describe.only('Ship does not occupy taken space by another', () => {
+  let ships;
+  beforeAll(() => {
+    ships = board.placeShip();
+  })
+  test('Ship not placed on top of another', () => {
+    const ship = ships[1];
+    const coordinatesArr = ship.map(location => JSON.stringify(location));
+    expect(board.markedLocation.has(coordinatesArr[0])).toBeTruthy()
+  })
+});
+
 describe.skip('Space available for ship', () => {
   test('Space available for size 4', () => {
     expect(board.placeShip()[1]).toBeLessThan(7);
