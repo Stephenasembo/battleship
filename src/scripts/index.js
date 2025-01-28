@@ -61,16 +61,15 @@ function createBoard() {
 
   function placeShip() {
     const shipsArr = createPlayerShip();
-    // const location = getRandomLocation();
     const markedLocation = new Set ();
     const placedShips = [];
-    // let col = location[0];
-    // let row = location[1];
     
     for (let i = 0; i < shipsArr.length; i += 1) {
       if (shipsArr[i].length === 4) {
         const location = getRandomLocation(7);
-        return location;
+        const shipLocation = [];
+        const col = location[0];
+        let row = location[1];
         for (let i = 0; i < 4; i += 1) {
           shipLocation.push(board[col, row]);
           markedLocation.add([col, row]);
@@ -103,7 +102,7 @@ function createBoard() {
       // }
     }
 
-    return [...markedLocation];
+    return placedShips;
   }
 
   return { board, getRandomLocation, createPlayerShip, placeShip };
