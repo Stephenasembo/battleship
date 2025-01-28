@@ -71,17 +71,20 @@ describe('Gameboard places ships on game board', () => {
   test('Board places ship of size 4 correctly', () => {
     expect((board.placeShip())[0].length).toEqual(4);
   })
-  test.skip('Board places 2 ships of size 3 correctly', () => {
-    const markedLocation = [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]];
-    expect(board.placeShip()).toEqual(markedLocation);
+  test('Board places 2 ships of size 3 correctly', () => {
+    expect(board.placeShip()[1].length).toEqual(3);
+    expect(board.placeShip()[2].length).toEqual(3); 
   })
-  test.skip('Board places 3 ships of size 2 correctly', () => {
-    const markedLocation = [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]];
-    expect(board.placeShip()).toEqual(markedLocation);
+  test('Board places 3 ships of size 2 correctly', () => {
+    expect(board.placeShip()[3].length).toEqual(2);
+    expect(board.placeShip()[4].length).toEqual(2);
+    expect(board.placeShip()[5].length).toEqual(2);
   });
-  test.skip('Board places 4 ships of size 1 correctly', () => {
-    const markedLocation = [[0, 0], [0, 1], [0, 2], [0, 3]];
-    expect(board.placeShip()).toEqual(markedLocation);
+  test('Board places 4 ships of size 1 correctly', () => {
+    expect(board.placeShip()[6].length).toEqual(1);
+    expect(board.placeShip()[7].length).toEqual(1); 
+    expect(board.placeShip()[8].length).toEqual(1);
+    expect(board.placeShip()[9].length).toEqual(1); 
   })
 });
 

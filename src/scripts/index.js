@@ -77,29 +77,44 @@ function createBoard() {
         }
         placedShips.push(shipLocation);
       }
-      // if (shipsArr[i].length === 3) {
-      //   for (let j = 0; j < 3; j += 1) {
-      //     board[col, row] = 's';
-      //     markedLocation.add([col, row]);
-      //     row += 1;
-      //   }
-      //   col += 1;
-      //   row = location[1];
-      // }
-      // if (shipsArr[i].length === 2) {
-      //   for (let i = 0; i < 2; i += 1) {
-      //     board[col, row] = 's';
-      //     markedLocation.add([col, row]);
-      //     row += 1;
-      //   }
-      //   col += 1;
-      //   row = location[1];
-      // }
-      // if (shipsArr[i].length === 1) {
-      //   board[col, row] = 's';
-      //   markedLocation.add([col, row]);
-      //   row += 1;
-      // }
+      if (shipsArr[i].length === 3) {
+        const location = getRandomLocation(8);
+        const shipLocation = [];
+        let col = location[0];
+        let row = location[1];
+        for (let j = 0; j < 3; j += 1) {
+          shipLocation.push(board[col, row]);
+          markedLocation.add([col, row]);
+          row += 1;
+        }
+        placedShips.push(shipLocation);
+        col += 1;
+        row = location[1];
+      }
+      if (shipsArr[i].length === 2) {
+        const location = getRandomLocation(8);
+        const shipLocation = [];
+        let col = location[0];
+        let row = location[1];
+        for (let i = 0; i < 2; i += 1) {
+          shipLocation.push(board[col, row]);
+          markedLocation.add([col, row]);
+          row += 1;
+        }
+        placedShips.push(shipLocation);
+        col += 1;
+        row = location[1];
+      }
+      if (shipsArr[i].length === 1) {
+        const location = getRandomLocation(8);
+        const shipLocation = [];
+        let col = location[0];
+        let row = location[1];
+        shipLocation.push(board[col, row]);
+        markedLocation.add([col, row]);
+        placedShips.push(shipLocation);
+        row += 1;
+      }
     }
 
     return placedShips;
