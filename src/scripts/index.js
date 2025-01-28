@@ -26,6 +26,8 @@ function createBoard() {
     board.push(row);
   }
 
+  const markedLocation = new Set ();
+
   function getRandomLocation(boundary = 0) {
     const row = Math.floor((Math.random()) * 10);
     const col = Math.floor((Math.random()) * 10);
@@ -61,7 +63,6 @@ function createBoard() {
 
   function placeShip() {
     const shipsArr = createPlayerShip();
-    const markedLocation = new Set ();
     const placedShips = [];
     
     for (let i = 0; i < shipsArr.length; i += 1) {
@@ -71,7 +72,7 @@ function createBoard() {
         const col = location[0];
         let row = location[1];
         for (let i = 0; i < 4; i += 1) {
-          shipLocation.push(board[col, row]);
+          shipLocation.push([col, row]);
           markedLocation.add([col, row]);
           row += 1;    
         }
@@ -83,7 +84,7 @@ function createBoard() {
         let col = location[0];
         let row = location[1];
         for (let j = 0; j < 3; j += 1) {
-          shipLocation.push(board[col, row]);
+          shipLocation.push([col, row]);
           markedLocation.add([col, row]);
           row += 1;
         }
@@ -97,7 +98,7 @@ function createBoard() {
         let col = location[0];
         let row = location[1];
         for (let i = 0; i < 2; i += 1) {
-          shipLocation.push(board[col, row]);
+          shipLocation.push([col, row]);
           markedLocation.add([col, row]);
           row += 1;
         }
@@ -110,7 +111,7 @@ function createBoard() {
         const shipLocation = [];
         let col = location[0];
         let row = location[1];
-        shipLocation.push(board[col, row]);
+        shipLocation.push([col, row]);
         markedLocation.add([col, row]);
         placedShips.push(shipLocation);
         row += 1;
@@ -120,7 +121,7 @@ function createBoard() {
     return placedShips;
   }
 
-  return { board, getRandomLocation, createPlayerShip, placeShip };
+  return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation };
 }
 
 export default createBoard;
