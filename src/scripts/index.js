@@ -61,7 +61,7 @@ function createBoard() {
     return playerShipArr;
   }
 
-  function placeIndividualShip(size, boundary, nextCol = 0, nextRow = 0) {
+  function placeIndividualShip(size, boundary = 0, nextCol = 0, nextRow = 0) {
     const location = getRandomLocation(boundary);
     const ship = [];
     const col = location[0];
@@ -92,7 +92,7 @@ function createBoard() {
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 1) {
-        const shipLocation = placeIndividualShip(2, 9);
+        const shipLocation = placeIndividualShip(1);
         placedShips.push(shipLocation);
       }
     }
@@ -101,6 +101,4 @@ function createBoard() {
   return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation };
 }
 
-createBoard().placeShip();
-
-// export default createBoard;
+export default createBoard;
