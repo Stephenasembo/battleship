@@ -61,67 +61,46 @@ function createBoard() {
     return playerShipArr;
   }
 
+  function placeIndividualShip(size, boundary, nextCol = 0, nextRow = 0) {
+    const location = getRandomLocation(boundary);
+    const ship = [];
+    const col = location[0];
+    let row = location[1];
+    for (let i = 0; i < size; i += 1) {
+      ship.push([col, row]);
+      markedLocation.add([col, row]);
+      row += 1;
+    }
+    return ship;
+  }
+
   function placeShip() {
     const shipsArr = createPlayerShip();
     const placedShips = [];
     
     for (let i = 0; i < shipsArr.length; i += 1) {
       if (shipsArr[i].length === 4) {
-        const location = getRandomLocation(7);
-        const shipLocation = [];
-        const col = location[0];
-        let row = location[1];
-        for (let i = 0; i < 4; i += 1) {
-          shipLocation.push([col, row]);
-          markedLocation.add([col, row]);
-          row += 1;    
-        }
+        const shipLocation = placeIndividualShip(4, 7);
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 3) {
-        const location = getRandomLocation(8);
-        const shipLocation = [];
-        let col = location[0];
-        let row = location[1];
-        for (let j = 0; j < 3; j += 1) {
-          shipLocation.push([col, row]);
-          markedLocation.add([col, row]);
-          row += 1;
-        }
-        placedShips.push(shipLocation);
-        col += 1;
-        row = location[1];
+        const shipLocation = placeIndividualShip(3, 8);
+        placedShips.push(shipLocation);  
       }
       if (shipsArr[i].length === 2) {
-        const location = getRandomLocation(8);
-        const shipLocation = [];
-        let col = location[0];
-        let row = location[1];
-        for (let i = 0; i < 2; i += 1) {
-          shipLocation.push([col, row]);
-          markedLocation.add([col, row]);
-          row += 1;
-        }
+        const shipLocation = placeIndividualShip(2, 9);
         placedShips.push(shipLocation);
-        col += 1;
-        row = location[1];
       }
       if (shipsArr[i].length === 1) {
-        const location = getRandomLocation(8);
-        const shipLocation = [];
-        let col = location[0];
-        let row = location[1];
-        shipLocation.push([col, row]);
-        markedLocation.add([col, row]);
+        const shipLocation = placeIndividualShip(2, 9);
         placedShips.push(shipLocation);
-        row += 1;
       }
     }
-
     return placedShips;
   }
-
   return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation };
 }
 
-export default createBoard;
+createBoard().placeShip();
+
+// export default createBoard;
