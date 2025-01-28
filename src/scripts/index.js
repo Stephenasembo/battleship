@@ -26,9 +26,12 @@ function createBoard() {
     board.push(row);
   }
 
-  function getRandomLocation() {
+  function getRandomLocation(boundary = 0) {
     const row = Math.floor((Math.random()) * 10);
-    const col = Math.floor((Math.random()) * 10); 
+    const col = Math.floor((Math.random()) * 10);
+    if (col > boundary) {
+      return getRandomLocation();
+    } 
     return [row, col];
   }
 
@@ -58,42 +61,46 @@ function createBoard() {
 
   function placeShip() {
     const shipsArr = createPlayerShip();
-    const location = [0, 0];
+    // const location = getRandomLocation();
     const markedLocation = new Set ();
-    let col = location[0];
-    let row = location[1];
+    const placedShips = [];
+    // let col = location[0];
+    // let row = location[1];
     
     for (let i = 0; i < shipsArr.length; i += 1) {
       if (shipsArr[i].length === 4) {
+        const location = getRandomLocation(7);
+        return location;
         for (let i = 0; i < 4; i += 1) {
-          board[col, row] = 's';
+          shipLocation.push(board[col, row]);
           markedLocation.add([col, row]);
           row += 1;    
         }
+        placedShips.push(shipLocation);
       }
-      if (shipsArr[i].length === 3) {
-        for (let j = 0; j < 3; j += 1) {
-          board[col, row] = 's';
-          markedLocation.add([col, row]);
-          row += 1;
-        }
-        col += 1;
-        row = location[1];
-      }
-      if (shipsArr[i].length === 2) {
-        for (let i = 0; i < 2; i += 1) {
-          board[col, row] = 's';
-          markedLocation.add([col, row]);
-          row += 1;
-        }
-        col += 1;
-        row = location[1];
-      }
-      if (shipsArr[i].length === 1) {
-        board[col, row] = 's';
-        markedLocation.add([col, row]);
-        row += 1;
-      }
+      // if (shipsArr[i].length === 3) {
+      //   for (let j = 0; j < 3; j += 1) {
+      //     board[col, row] = 's';
+      //     markedLocation.add([col, row]);
+      //     row += 1;
+      //   }
+      //   col += 1;
+      //   row = location[1];
+      // }
+      // if (shipsArr[i].length === 2) {
+      //   for (let i = 0; i < 2; i += 1) {
+      //     board[col, row] = 's';
+      //     markedLocation.add([col, row]);
+      //     row += 1;
+      //   }
+      //   col += 1;
+      //   row = location[1];
+      // }
+      // if (shipsArr[i].length === 1) {
+      //   board[col, row] = 's';
+      //   markedLocation.add([col, row]);
+      //   row += 1;
+      // }
     }
 
     return [...markedLocation];
