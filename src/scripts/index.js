@@ -95,17 +95,19 @@ function createBoard() {
     return ship;
   }
 
-  function placeShip() {
-    const shipsArr = createPlayerShip();
+  function placeShip(shipsArr) {
+    // const shipsArr = createPlayerShip();
     const placedShips = [];
     
     for (let i = 0; i < shipsArr.length; i += 1) {
       if (shipsArr[i].length === 4) {
         const shipLocation = placeIndividualShip(4, 7);
+        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 3) {
         const shipLocation = placeIndividualShip(3, 8);
+        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
         placedShips.push(shipLocation);
         return placedShips; 
       }
@@ -122,13 +124,16 @@ function createBoard() {
   }
 
   function receiveAttack(location) {
-    const ships = placeShip();
+    const unplacedShips = createPlayerShip();
+    const ships = placeShip(unplacedShips);
     const shipsHit = new Set();
     if (markedLocation.has(JSON.stringify(location))) {
       const col = location[0];
       const row = location[1];
-      const foundShip = ships.filter((ship) => ship.find((value) => value[0] === col && value[1] === row));
+      let foundShip = JSON.stringify((ships.filter((ship) => ship.find((value) => value[0] === col && value[1] === row)))[0]);
       console.log(foundShip);
+      let newShip = unplacedShips.find((ship) => ship.boardLocation === foundShip);
+      console.log(newShip);
       shipsHit.add(JSON.stringify(location));
     } else {
       console.log('missed shot')
