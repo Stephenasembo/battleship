@@ -135,15 +135,15 @@ function createBoard() {
   }
 
   const unplacedShips = createPlayerShip();
+  const placedBoardShips = placeShip(unplacedShips);
 
   function receiveAttack(location) {
-    const ships = placeShip(unplacedShips);
     const shipsHit = new Set();
     if (markedLocation.has(JSON.stringify(location))) {
       const col = location[0];
       const row = location[1];
       let foundShip = JSON.stringify(
-        ships.filter((ship) => ship.find((value) => value[0] === col
+        placedBoardShips.filter((ship) => ship.find((value) => value[0] === col
         && value[1] === row))[0],
       );
 
