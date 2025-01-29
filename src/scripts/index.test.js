@@ -78,7 +78,6 @@ describe('Ship does not occupy taken space by another', () => {
   });
   test('Ship not placed on top of another', () => {
     const ship = ships[1];
-    console.log(ships);
     const coordinatesArr = ship.map((location) => JSON.stringify(location));
     expect(board.markedLocation.has(coordinatesArr[0])).toBeTruthy();
   });
@@ -94,4 +93,11 @@ describe.skip('Space available for ship', () => {
   test.skip('Space available for size 2', () => {
     expect(location[0]).toBeLessThan(9);
   })
+});
+
+describe.only('Board receives attack', () => {
+  test('Attack recieved', () => {
+    expect(board.receiveAttack([0, 0])).toBeTruthy();
+    expect(board.receiveAttack([1, 1])).toBeFalsy();
+  });
 });

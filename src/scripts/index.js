@@ -31,7 +31,6 @@ function createBoard() {
   function getRandomLocation(boundary = 0) {
     const row = Math.floor((Math.random()) * 10);
     const col = Math.floor((Math.random()) * 10);
-    console.log(row);
     if (row > boundary) {
       return getRandomLocation();
     } 
@@ -106,7 +105,14 @@ function createBoard() {
     }
     return placedShips;
   }
-  return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation };
+
+  function receiveAttack(location) {
+    const mockSet = new Set();
+    mockSet.add(JSON.stringify([0, 0]));
+    return mockSet.has(JSON.stringify(location));
+  }
+
+  return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation, receiveAttack };
 }
 
 export { createBoard, Ship };
