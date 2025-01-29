@@ -62,7 +62,7 @@ function createBoard() {
     return playerShipArr;
   }
 
-  function placeIndividualShip(size, boundary = 0, nextCol = 0, nextRow = 0) {
+  function placeIndividualShip(size, boundary = 0) {
     const location = getRandomLocation(boundary);
     let ship = [];
     const col = location[0];
@@ -76,8 +76,8 @@ function createBoard() {
           [0, 2],
           [0, 3],
         ];
-        ship.forEach((location) => {
-          markedLocation.add(JSON.stringify(location));
+        ship.forEach((spot) => {
+          markedLocation.add(JSON.stringify(spot));
         });
         return ship;
       }
@@ -87,14 +87,14 @@ function createBoard() {
           [0, 5],
           [0, 6],
         ];
-        ship.forEach((location) => {
-          markedLocation.add(JSON.stringify(location));
+        ship.forEach((spot) => {
+          markedLocation.add(JSON.stringify(spot));
         });
         return ship;
       }
       if (markedLocation.has(coordinates)) {
-        ship.forEach((location) => {
-          markedLocation.delete(location);
+        ship.forEach((spot) => {
+          markedLocation.delete(spot);
         });
         return placeIndividualShip(size, boundary);
       }
@@ -105,8 +105,8 @@ function createBoard() {
     return ship;
   }
 
-  function placeShip(shipsArr) {
-    // const shipsArr = createPlayerShip();
+  function placeShip(playerShipsArr) {
+    const shipsArr = playerShipsArr;
     const placedShips = [];
 
     for (let i = 0; i < shipsArr.length; i += 1) {
@@ -142,10 +142,10 @@ function createBoard() {
       const col = location[0];
       const row = location[1];
       let foundShip = JSON.stringify(
-        ships.filter((ship) =>
-          ship.find((value) => value[0] === col && value[1] === row),
-        )[0],
+        ships.filter((ship) => ship.find((value) => value[0] === col
+        && value[1] === row))[0],
       );
+
       foundShip = unplacedShips.find(
         (ship) => ship.boardLocation === foundShip,
       );
@@ -153,6 +153,7 @@ function createBoard() {
       foundShip.hit();
       return foundShip.hits;
     }
+    return null;
   }
 
   return {
