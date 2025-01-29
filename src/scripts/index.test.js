@@ -25,13 +25,13 @@ describe('Gameboard works correctly', () => {
   let board;
   beforeEach(() => {
     board = createBoard();
-  })
+  });
   test('board has 10 rows', () => {
     expect(board.board.length).toBe(10);
-  })
+  });
   test('each row has 10 columns', () => {
     expect(board.board[0].length).toBe(10);
-  })
+  });
   describe('board gets coordinates for ship', () => {
     test('Coordinates are within boundaries', () => {
       const location = board.getRandomLocation();
@@ -39,8 +39,8 @@ describe('Gameboard works correctly', () => {
       expect(location[0]).toBeGreaterThan(-1);
       expect(location[1]).toBeLessThan(10);
       expect(location[1]).toBeGreaterThan(-1);
-    })
-  })
+    });
+  });
 });
 
 describe('Gameboard places ships on game board', () => {
@@ -56,7 +56,7 @@ describe('Gameboard places ships on game board', () => {
   });
   test('Board places 2 ships of size 3 correctly', () => {
     expect(ships[1].length).toEqual(3);
-    expect(ships[2].length).toEqual(3); 
+    expect(ships[2].length).toEqual(3);
   });
   test('Board places 3 ships of size 2 correctly', () => {
     expect(ships[3].length).toEqual(2);
@@ -86,13 +86,13 @@ describe('Ship does not occupy taken space by another', () => {
 describe.skip('Space available for ship', () => {
   test('Space available for size 4', () => {
     expect(board.placeShip()[1]).toBeLessThan(7);
-  })
+  });
   test.skip('Space available for size 3', () => {
     expect(location[0]).toBeLessThan(8);
-  })
+  });
   test.skip('Space available for size 2', () => {
     expect(location[0]).toBeLessThan(9);
-  })
+  });
 });
 
 describe.only('Board receives attack', () => {
