@@ -63,11 +63,25 @@ function createBoard() {
 
   function placeIndividualShip(size, boundary = 0, nextCol = 0, nextRow = 0) {
     const location = getRandomLocation(boundary);
-    const ship = [];
+    let ship = [];
     const col = location[0];
     let row = location[1];
     for (let i = 0; i < size; i += 1) {
       const coordinates = JSON.stringify([col, row]);
+      if (size === 4) {
+        ship = [[0, 0], [0, 1], [0, 2], [0, 3]];
+        ship.forEach((location) => {
+          markedLocation.add(JSON.stringify(location))
+        })
+        return ship;
+      }
+      if (size === 3) {
+        ship = [[0, 4], [0, 5], [0, 6]];
+        ship.forEach((location) => {
+          markedLocation.add(JSON.stringify(location))
+        })
+        return ship;
+      }
       if (markedLocation.has(coordinates)) {
         ship.forEach((location) => {
           markedLocation.delete(location);
@@ -92,7 +106,8 @@ function createBoard() {
       }
       if (shipsArr[i].length === 3) {
         const shipLocation = placeIndividualShip(3, 8);
-        placedShips.push(shipLocation);  
+        placedShips.push(shipLocation);
+        return placedShips; 
       }
       if (shipsArr[i].length === 2) {
         const shipLocation = placeIndividualShip(2, 9);
@@ -107,12 +122,22 @@ function createBoard() {
   }
 
   function receiveAttack(location) {
-    const mockSet = new Set();
-    mockSet.add(JSON.stringify([0, 0]));
-    return mockSet.has(JSON.stringify(location));
+    const ships = placeShip();
+    const shipsHit = new Set();
+    if (markedLocation.has(JSON.stringify(location))) {
+      const col = location[0];
+      const row = location[1];
+      const foundShip = ships.filter((ship) => ship.find((value) => value[0] === col && value[1] === row));
+      console.log(foundShip);
+      shipsHit.add(JSON.stringify(location));
+    } else {
+      console.log('missed shot')
+    }
   }
 
   return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation, receiveAttack };
 }
 
-export { createBoard, Ship };
+createBoard().receiveAttack([0, 5]);
+
+// export { createBoard, Ship };
