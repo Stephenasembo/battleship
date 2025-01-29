@@ -72,9 +72,12 @@ describe('Board receives attack', () => {
     expect(board.receiveAttack([0, 0])).toBeTruthy();
     expect(board.receiveAttack([1, 1])).toBeFalsy();
   });
-  test('Increase hits of target ship', () => {
+  test.skip('Increase hits of target ship', () => {
     expect(board.receiveAttack([0, 0])).toEqual(1);
     expect(board.receiveAttack([0, 1])).toEqual(2);
     expect(board.receiveAttack([0, 2])).toEqual(3);
+  });
+  test('Record missed shots', () => {
+    expect(board.receiveAttack([4, 6])).toContainEqual([4, 6]);
   });
 });

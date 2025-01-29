@@ -29,6 +29,7 @@ function createBoard() {
   }
 
   const markedLocation = new Set();
+  const missedShots = new Set();
 
   function getRandomLocation(boundary = 0) {
     const row = Math.floor(Math.random() * 10);
@@ -153,7 +154,8 @@ function createBoard() {
       foundShip.hit();
       return foundShip.hits;
     }
-    return null;
+    missedShots.add(location);
+    return [...missedShots];
   }
 
   return {
@@ -163,6 +165,7 @@ function createBoard() {
     placeShip,
     markedLocation,
     receiveAttack,
+    missedShots,
   };
 }
 
