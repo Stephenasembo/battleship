@@ -22,10 +22,6 @@ describe('Ship objects instantiated correctly', () => {
 });
 
 describe('Gameboard works correctly', () => {
-  let board;
-  beforeEach(() => {
-    board = createBoard();
-  });
   test('board has 10 rows', () => {
     expect(board.board.length).toBe(10);
   });
@@ -71,31 +67,7 @@ describe('Gameboard places ships on game board', () => {
   });
 });
 
-describe('Ship does not occupy taken space by another', () => {
-  let ships;
-  beforeAll(() => {
-    ships = board.placeShip();
-  });
-  test('Ship not placed on top of another', () => {
-    const ship = ships[1];
-    const coordinatesArr = ship.map((location) => JSON.stringify(location));
-    expect(board.markedLocation.has(coordinatesArr[0])).toBeTruthy();
-  });
-});
-
-describe.skip('Space available for ship', () => {
-  test('Space available for size 4', () => {
-    expect(board.placeShip()[1]).toBeLessThan(7);
-  });
-  test.skip('Space available for size 3', () => {
-    expect(location[0]).toBeLessThan(8);
-  });
-  test.skip('Space available for size 2', () => {
-    expect(location[0]).toBeLessThan(9);
-  });
-});
-
-describe.only('Board receives attack', () => {
+describe('Board receives attack', () => {
   test.skip('Attack recieved', () => {
     expect(board.receiveAttack([0, 0])).toBeTruthy();
     expect(board.receiveAttack([1, 1])).toBeFalsy();
