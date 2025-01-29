@@ -1,14 +1,16 @@
 class Ship {
-  #hits = 0;
   constructor(length) {
     this.length = length;
+    this.hits = 0;
   }
+
   hit() {
-    this.#hits += 1;
-    return this.#hits;
+    this.hits += 1;
+    return this.hits;
   }
+
   isSunk() {
-    if (this.#hits >= this.length) {
+    if (this.hits >= this.length) {
       return true;
     }
     return false;
@@ -98,7 +100,7 @@ function createBoard() {
   function placeShip(shipsArr) {
     // const shipsArr = createPlayerShip();
     const placedShips = [];
-    
+
     for (let i = 0; i < shipsArr.length; i += 1) {
       if (shipsArr[i].length === 4) {
         const shipLocation = placeIndividualShip(4, 7);
@@ -123,26 +125,24 @@ function createBoard() {
     return placedShips;
   }
 
+  const unplacedShips = createPlayerShip();
+
   function receiveAttack(location) {
-    const unplacedShips = createPlayerShip();
     const ships = placeShip(unplacedShips);
     const shipsHit = new Set();
     if (markedLocation.has(JSON.stringify(location))) {
       const col = location[0];
       const row = location[1];
-      let foundShip = JSON.stringify((ships.filter((ship) => ship.find((value) => value[0] === col && value[1] === row)))[0]);
-      console.log(foundShip);
-      let newShip = unplacedShips.find((ship) => ship.boardLocation === foundShip);
-      console.log(newShip);
+      let foundShip = JSON.stringify((ships.filter((ship) => ship.find((value) => value[0] === col
+      && value[1] === row)))[0]);
+      foundShip = unplacedShips.find((ship) => ship.boardLocation === foundShip);
       shipsHit.add(JSON.stringify(location));
-    } else {
-      console.log('missed shot')
+      foundShip.hit();
+      return foundShip.hits;
     }
   }
 
   return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation, receiveAttack };
 }
 
-createBoard().receiveAttack([0, 5]);
-
-// export { createBoard, Ship };
+export { createBoard, Ship };
