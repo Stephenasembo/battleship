@@ -43,35 +43,35 @@ describe('Gameboard works correctly', () => {
   })
 });
 
-describe.only('Gameboard places ships on game board', () => {
-  let board;
-  beforeEach(() => {
-    board = createBoard();
-  })
+describe('Gameboard places ships on game board', () => {
+  let ships;
+  beforeAll(() => {
+    ships = board.createPlayerShip();
+  });
   test('Board creates players ships', () => {
-    expect(board.createPlayerShip().length).toBe(10);
-  })
+    expect(ships.length).toBe(10);
+  });
   test('Board places ship of size 4 correctly', () => {
-    expect((board.placeShip())[0].length).toEqual(4);
-  })
+    expect(ships[0].length).toEqual(4);
+  });
   test('Board places 2 ships of size 3 correctly', () => {
-    expect(board.placeShip()[1].length).toEqual(3);
-    expect(board.placeShip()[2].length).toEqual(3); 
-  })
+    expect(ships[1].length).toEqual(3);
+    expect(ships[2].length).toEqual(3); 
+  });
   test('Board places 3 ships of size 2 correctly', () => {
-    expect(board.placeShip()[3].length).toEqual(2);
-    expect(board.placeShip()[4].length).toEqual(2);
-    expect(board.placeShip()[5].length).toEqual(2);
+    expect(ships[3].length).toEqual(2);
+    expect(ships[4].length).toEqual(2);
+    expect(ships[5].length).toEqual(2);
   });
   test('Board places 4 ships of size 1 correctly', () => {
-    expect(board.placeShip()[6].length).toEqual(1);
-    expect(board.placeShip()[7].length).toEqual(1); 
-    expect(board.placeShip()[8].length).toEqual(1);
-    expect(board.placeShip()[9].length).toEqual(1); 
-  })
+    expect(ships[6].length).toEqual(1);
+    expect(ships[7].length).toEqual(1);
+    expect(ships[8].length).toEqual(1);
+    expect(ships[9].length).toEqual(1);
+  });
 });
 
-describe.only('Ship does not occupy taken space by another', () => {
+describe('Ship does not occupy taken space by another', () => {
   let ships;
   beforeAll(() => {
     ships = board.placeShip();
