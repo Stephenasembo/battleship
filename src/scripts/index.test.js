@@ -6,7 +6,7 @@ beforeAll(() => {
   board = createBoard();
 });
 
-describe.only('Ship objects instantiated correctly', () => {
+describe('Ship objects instantiated correctly', () => {
   let myShip;
   beforeEach(() => {
     myShip = new Ship(4);
@@ -43,7 +43,7 @@ describe('Gameboard works correctly', () => {
   })
 });
 
-describe('Gameboard places ships on game board', () => {
+describe.only('Gameboard places ships on game board', () => {
   let board;
   beforeEach(() => {
     board = createBoard();
@@ -69,6 +69,19 @@ describe('Gameboard places ships on game board', () => {
     expect(board.placeShip()[8].length).toEqual(1);
     expect(board.placeShip()[9].length).toEqual(1); 
   })
+});
+
+describe.only('Ship does not occupy taken space by another', () => {
+  let ships;
+  beforeAll(() => {
+    ships = board.placeShip();
+  });
+  test('Ship not placed on top of another', () => {
+    const ship = ships[1];
+    console.log(ships);
+    const coordinatesArr = ship.map((location) => JSON.stringify(location));
+    expect(board.markedLocation.has(coordinatesArr[0])).toBeTruthy();
+  });
 });
 
 describe.skip('Space available for ship', () => {

@@ -31,10 +31,11 @@ function createBoard() {
   function getRandomLocation(boundary = 0) {
     const row = Math.floor((Math.random()) * 10);
     const col = Math.floor((Math.random()) * 10);
-    if (col > boundary) {
+    console.log(row);
+    if (row > boundary) {
       return getRandomLocation();
     } 
-    return [row, col];
+    return [col, row];
   }
 
   function createPlayerShip() {
@@ -67,8 +68,14 @@ function createBoard() {
     const col = location[0];
     let row = location[1];
     for (let i = 0; i < size; i += 1) {
-      ship.push([col, row]);
       const coordinates = JSON.stringify([col, row]);
+      if (markedLocation.has(coordinates)) {
+        ship.forEach((location) => {
+          markedLocation.delete(location);
+        })
+        return placeIndividualShip(size, boundary);
+      }
+      ship.push([col, row]);
       markedLocation.add(coordinates);
       row += 1;
     }
@@ -102,4 +109,4 @@ function createBoard() {
   return { board, getRandomLocation, createPlayerShip, placeShip, markedLocation };
 }
 
-export default createBoard;
+export { createBoard, Ship };
