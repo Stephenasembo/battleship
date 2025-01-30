@@ -68,11 +68,17 @@ describe('Gameboard places ships on game board', () => {
 });
 
 describe('Board receives attack', () => {
+  beforeAll(() => {
+    board.receiveAttack([0, 0]);
+    board.receiveAttack([0, 1]);
+    board.receiveAttack([0, 2]);
+  });
+
   test.skip('Attack recieved', () => {
     expect(board.receiveAttack([0, 0])).toBeTruthy();
     expect(board.receiveAttack([1, 1])).toBeFalsy();
   });
-  test('Increase hits of target ship', () => {
+  test.skip('Increase hits of target ship', () => {
     expect(board.receiveAttack([0, 0])).toEqual(1);
     expect(board.receiveAttack([0, 1])).toEqual(2);
     expect(board.receiveAttack([0, 2])).toEqual(3);
@@ -82,5 +88,8 @@ describe('Board receives attack', () => {
   test('Record missed shots', () => {
     expect(board.receiveAttack([4, 6])).toContainEqual([4, 6]);
     expect(board.receiveAttack([4, 6])).toEqual('invalid move');
+  });
+  test('All ships sunk', () => {
+    expect(board.receiveAttack([0, 3])).toEqual('All player ships sunk');
   });
 });

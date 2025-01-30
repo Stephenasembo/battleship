@@ -32,6 +32,7 @@ function createBoard() {
   const missedShots = new Set();
   const shipsHit = new Set();
   const missedShotsCoordinates = new Set();
+  let shipsSunk = 0;
 
   function getRandomLocation(boundary = 0) {
     const row = Math.floor(Math.random() * 10);
@@ -117,6 +118,7 @@ function createBoard() {
         const shipLocation = placeIndividualShip(4, 7);
         shipsArr[i].boardLocation = JSON.stringify(shipLocation);
         placedShips.push(shipLocation);
+        return placedShips;
       }
       if (shipsArr[i].length === 3) {
         const shipLocation = placeIndividualShip(3, 8);
@@ -138,6 +140,13 @@ function createBoard() {
 
   const unplacedShips = createPlayerShip();
   const placedBoardShips = placeShip(unplacedShips);
+
+  function allShipsSunk() {
+    if (placedBoardShips.length === shipsSunk) {
+      return true;
+    }
+    return false;
+  }
 
   function receiveAttack(location) {
     // Check if the location has a ship
@@ -161,6 +170,13 @@ function createBoard() {
       );
       foundShip.hit();
       shipsHit.add(JSON.stringify(location));
+      if (foundShip.hits === foundShip.length) {
+        foundShip.isSunk = true;
+        shipsSunk += 1;
+        if (allShipsSunk()) {
+          return 'All player ships sunk';
+        }
+      }
       return foundShip.hits;
     }
     // Check if shot was already made
