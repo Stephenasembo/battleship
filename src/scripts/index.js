@@ -164,8 +164,15 @@ function createBoard() {
     return [...missedShotsCoordinates];
   }
 
+  function decodeLocation(locationId) {
+    const coordinatesArr = locationId.split('k');
+    const row = Number((coordinatesArr[1].split('row'))[1]);
+    const col = Number((coordinatesArr[2].split('col'))[1]);
+    return [row, col];
+  }
+
   function getDesiredLocation(event) {
-    console.log(event.target.id);
+    console.log(decodeLocation(event.target.id));
     return event.target.id;
   }
 
