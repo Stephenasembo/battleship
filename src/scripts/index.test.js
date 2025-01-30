@@ -1,4 +1,4 @@
-import { createBoard, Ship } from './index';
+import { createBoard, Ship, Player } from './index';
 
 let board;
 
@@ -91,5 +91,12 @@ describe.skip('Board receives attack', () => {
   });
   test('All ships sunk', () => {
     expect(board.receiveAttack([0, 3])).toEqual('All player ships sunk');
+  });
+});
+
+describe.only('Players constructed correctly', () => {
+  test('Player types identified', () => {
+    expect(Player('computer').type).toBe('computer');
+    expect(Player('human').type).toBe('human');
   });
 });

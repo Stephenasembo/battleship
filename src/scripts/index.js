@@ -175,4 +175,9 @@ function createBoard() {
   };
 }
 
-export { createBoard, Ship };
+function Player(type) {
+  const gameBoard = createBoard();
+  return { gameBoard, type };
+}
+
+export { createBoard, Ship, Player };
