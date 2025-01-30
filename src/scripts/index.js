@@ -37,7 +37,7 @@ function createBoard() {
   function getRandomLocation(boundary = 0) {
     const row = Math.floor(Math.random() * 10);
     const col = Math.floor(Math.random() * 10);
-    if (row > boundary) {
+    if (col > boundary) {
       return getRandomLocation();
     }
     return [col, row];
@@ -68,34 +68,11 @@ function createBoard() {
 
   function placeIndividualShip(size, boundary = 0) {
     const location = getRandomLocation(boundary);
-    let ship = [];
-    const col = location[0];
-    let row = location[1];
+    const ship = [];
+    let col = location[0];
+    const row = location[1];
     for (let i = 0; i < size; i += 1) {
       const coordinates = JSON.stringify([col, row]);
-      if (size === 4) {
-        ship = [
-          [0, 0],
-          [0, 1],
-          [0, 2],
-          [0, 3],
-        ];
-        ship.forEach((spot) => {
-          markedLocation.add(JSON.stringify(spot));
-        });
-        return ship;
-      }
-      if (size === 3) {
-        ship = [
-          [0, 4],
-          [0, 5],
-          [0, 6],
-        ];
-        ship.forEach((spot) => {
-          markedLocation.add(JSON.stringify(spot));
-        });
-        return ship;
-      }
       if (markedLocation.has(coordinates)) {
         ship.forEach((spot) => {
           markedLocation.delete(spot);
@@ -104,7 +81,8 @@ function createBoard() {
       }
       ship.push([col, row]);
       markedLocation.add(coordinates);
-      row += 1;
+      // The ships will extend horizontally
+      col += 1;
     }
     return ship;
   }
@@ -115,19 +93,17 @@ function createBoard() {
 
     for (let i = 0; i < shipsArr.length; i += 1) {
       if (shipsArr[i].length === 4) {
-        const shipLocation = placeIndividualShip(4, 7);
+        const shipLocation = placeIndividualShip(4, 6);
         shipsArr[i].boardLocation = JSON.stringify(shipLocation);
         placedShips.push(shipLocation);
-        return placedShips;
       }
       if (shipsArr[i].length === 3) {
-        const shipLocation = placeIndividualShip(3, 8);
+        const shipLocation = placeIndividualShip(3, 7);
         shipsArr[i].boardLocation = JSON.stringify(shipLocation);
         placedShips.push(shipLocation);
-        return placedShips;
       }
       if (shipsArr[i].length === 2) {
-        const shipLocation = placeIndividualShip(2, 9);
+        const shipLocation = placeIndividualShip(2, 8);
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 1) {
