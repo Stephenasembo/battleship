@@ -1,0 +1,20 @@
+:root * {
+  box-sizing: border-box;
+}
+
+#container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.board button {
+  width: 20px;
+  height: 100%;
+  margin: 0;
+  border: 1px solid rgb(202, 202, 202);
+}
+
+.board > div > div {
+  height: 20px;
+}

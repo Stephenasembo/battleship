@@ -1,4 +1,5 @@
 import { Ship, createBoard, Player } from './index';
+import '../styles.css';
 
 const player1 = Player('human');
 const player2 = Player('computer');
