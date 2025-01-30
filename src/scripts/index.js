@@ -164,6 +164,11 @@ function createBoard() {
     return [...missedShotsCoordinates];
   }
 
+  function getDesiredLocation(event) {
+    console.log(event.target.id);
+    return event.target.id;
+  }
+
   return {
     board,
     getRandomLocation,
@@ -172,6 +177,7 @@ function createBoard() {
     markedLocation,
     receiveAttack,
     missedShots,
+    getDesiredLocation,
   };
 }
 

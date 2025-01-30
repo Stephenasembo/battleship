@@ -35,7 +35,7 @@ function displayShips(ship, board, playerBoard) {
     startRow = startRow.toString();
     const displayStartRow = board.querySelector(`#${playerBoard}row${startRow}`);
     const displayStartCol = displayStartRow.querySelector(`#${playerBoard}col${startCol}`);
-    displayStartCol.style.backgroundColor = 'red';  
+    displayStartCol.style.backgroundColor = 'red';
   }
 }
 
@@ -49,6 +49,13 @@ function displayController() {
   const board2 = displayBoard(player2Board);
   displayShips(testShip, board1.boardDiv, board1.boardName);
   displayShips(testShip, board2.boardDiv, board2.boardName);
+
+  return {
+    player1Board,
+    player2Board,
+  };
 }
 
-displayController();
+const gameController = displayController();
+
+gameController.player1Board.addEventListener('click', player1.gameBoard.getDesiredLocation);
