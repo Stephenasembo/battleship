@@ -30,6 +30,8 @@ function createBoard() {
 
   const markedLocation = new Set();
   const missedShots = new Set();
+  const shipsHit = new Set();
+  const missedShotsCoordinates = new Set();
 
   function getRandomLocation(boundary = 0) {
     const row = Math.floor(Math.random() * 10);
@@ -138,24 +140,36 @@ function createBoard() {
   const placedBoardShips = placeShip(unplacedShips);
 
   function receiveAttack(location) {
-    const shipsHit = new Set();
+    // Check if the location has a ship
     if (markedLocation.has(JSON.stringify(location))) {
+      // Check if spot is already hit
+      if (shipsHit.has(JSON.stringify(location))) {
+        return 'invalid move';
+      }
       const col = location[0];
       const row = location[1];
+
+      // Find ship location on the board
       let foundShip = JSON.stringify(
         placedBoardShips.filter((ship) => ship.find((value) => value[0] === col
         && value[1] === row))[0],
       );
 
+      // Find ship object which is targeted
       foundShip = unplacedShips.find(
         (ship) => ship.boardLocation === foundShip,
       );
-      shipsHit.add(JSON.stringify(location));
       foundShip.hit();
+      shipsHit.add(JSON.stringify(location));
       return foundShip.hits;
     }
-    missedShots.add(location);
-    return [...missedShots];
+    // Check if shot was already made
+    if (missedShots.has(JSON.stringify(location))) {
+      return 'invalid move';
+    }
+    missedShots.add(JSON.stringify(location));
+    missedShotsCoordinates.add(location);
+    return [...missedShotsCoordinates];
   }
 
   return {
