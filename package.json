@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll --verbose",
     "build": "webpack --config webpack.prod.js",
     "start": "webpack serve --config webpack.dev.js",
     "predeploy": "git checkout gh-pages && git merge main --no-edit && npm run build && git add dist -f",

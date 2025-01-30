@@ -5,7 +5,17 @@
     "import/no-extraneous-dependencies": "off"
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   },
-  "root": true
+  "root": true,
+  "overrides": [
+    {
+      "files": ["tests/**/*"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+
 }
