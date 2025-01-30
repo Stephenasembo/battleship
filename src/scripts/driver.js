@@ -14,10 +14,10 @@ function displayBoard(parent) {
   }
   for (let i = 0; i < 10; i += 1) {
     const rowDiv = document.createElement('div');
-    rowDiv.setAttribute('id', `${boardName}row${i}`);
+    rowDiv.setAttribute('id', `${boardName}krow${i}`);
     for (let j = 0; j < 10; j += 1) {
       const colBtn = document.createElement('button');
-      colBtn.setAttribute('id', `${boardName}row${i}col${j}`);
+      colBtn.setAttribute('id', `${boardName}krow${i}kcol${j}`);
       rowDiv.appendChild(colBtn);
     }
     boardDiv.appendChild(rowDiv);
@@ -33,8 +33,8 @@ function displayShips(ship, board, playerBoard) {
     let startCol = location[i][1];
     startCol = startCol.toString();
     startRow = startRow.toString();
-    const displayStartRow = board.querySelector(`#${playerBoard}row${startRow}`);
-    const displayStartCol = displayStartRow.querySelector(`#${playerBoard}row${startRow}col${startCol}`);
+    const displayStartRow = board.querySelector(`#${playerBoard}krow${startRow}`);
+    const displayStartCol = displayStartRow.querySelector(`#${playerBoard}krow${startRow}kcol${startCol}`);
     displayStartCol.style.backgroundColor = 'red';
   }
 }
