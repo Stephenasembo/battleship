@@ -33,7 +33,20 @@ function displayShips(ship, board, playerBoardName) {
     horizontal = horizontal.toString();
     const displayVertical = document.querySelector(`#${playerBoardName}krow${vertical}`);
     const displayHorizontal = document.querySelector(`#${playerBoardName}krow${vertical}kcol${horizontal}`);
-    displayHorizontal.style.backgroundColor = 'red';
+
+    // Add classes for specific styling
+    displayHorizontal.classList.toggle('ship');
+    if (i === 0) {
+      if (i === ship.length - 1) {
+        displayHorizontal.classList.toggle('onlyCol');
+      } else {
+        displayHorizontal.classList.toggle('startCol');
+      }
+    } else if (i === ship.length - 1) {
+      displayHorizontal.classList.toggle('endCol');
+    } else {
+      displayHorizontal.classList.toggle('midCol');
+    }
   }
 }
 
@@ -115,5 +128,6 @@ function displayBoardShips(player) {
 }
 
 displayBoardShips(player1);
+displayBoardShips(player2);
 
 playGame();

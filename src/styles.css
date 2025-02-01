@@ -9,12 +9,44 @@
 }
 
 .board button {
-  width: 20px;
+  width: 40px;
   height: 100%;
   margin: 0;
+}
+
+button {
   border: 1px solid rgb(202, 202, 202);
 }
 
 .board > div {
-  height: 20px;
+  height: 40px;
+}
+
+.startCol {
+  border-top: 1px solid blue;
+  border-left: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-right: none;
+}
+
+.endCol {
+  border-top: 1px solid blue;
+  border-right: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-left: none;
+}
+
+.midCol {
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  border-right: none;
+  border-left: none;
+}
+
+.onlyCol {
+  border: 1px solid blue;
+}
+
+.ship {
+  background-color: grey;
 }
