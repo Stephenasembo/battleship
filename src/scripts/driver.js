@@ -94,6 +94,8 @@ export default function playGame() {
     const coordinates = decodeLocation(location);
     console.log(coordinates);
     deactivateBoards(playRound);
+    switchActivePlayer();
+    activatePlayerBoard(playRound);
   }
 
   activatePlayerBoard(playRound);
