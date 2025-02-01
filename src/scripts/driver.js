@@ -75,20 +75,28 @@ export default function playGame() {
     return [row, col];
   }
 
+  // Listens for active player's actions on board
+  function activatePlayerBoard(playRoundFn) {
+    if (activePlayer === player1) {
+      gameController.player1Board.addEventListener('click', playRoundFn);
+    } else if (activePlayer === player2) {
+      gameController.player2Board.addEventListener('click', playRoundFn);
+    }
+  }
+
+  function deactivateBoards(playRoundFn) {
+    gameController.player1Board.removeEventListener('click', playRoundFn);
+    gameController.player2Board.removeEventListener('click', playRoundFn);
+  }
+
   function playRound(event) {
     const location = event.target.id;
     const coordinates = decodeLocation(location);
     console.log(coordinates);
+    deactivateBoards(playRound);
   }
 
-  // Listens for active player's actions on board
-  (function activatePlayerBoard() {
-    if (activePlayer === player1) {
-      gameController.player1Board.addEventListener('click', playRound);
-    } else if (activePlayer === player2) {
-      gameController.player2Board.addEventListener('click', playRound);
-    }
-  }());
+  activatePlayerBoard(playRound);
 }
 
 playGame();
