@@ -83,7 +83,7 @@ export default function playGame() {
     const coordinatesArr = locationId.split('k');
     const row = Number((coordinatesArr[1].split('row'))[1]);
     const col = Number((coordinatesArr[2].split('col'))[1]);
-    return [row, col];
+    return [col, row];
   }
 
   // Listens for active player's actions on board
@@ -101,13 +101,30 @@ export default function playGame() {
   }
 
   function displayShot(location, player) {
-    player.gameBoard.receiveAttack(location);
-  };
+    let boardName;
+    if (player === player1) {
+      boardName = 'p1';
+    } else {
+      boardName = 'p2';
+    }
+    console.log(player.playerPlacedShips);
+    console.log(player.gameBoard.markedLocation);
+    const spot = document.querySelector(`#${boardName}krow${location[1]}kcol${location[0]}`);
+    const shot = player.gameBoard.receiveAttack(
+      location,
+      player.playerPlacedShips,
+      player.unplacedShips,
+    );
+    if (shot === 'ship hit') {
+      spot.textContent = 'x';
+    } else if (shot === 'missed shot') {
+      spot.textContent = 'o';
+    }
+  }
 
   function playRound(event) {
     const location = event.target.id;
     const coordinates = decodeLocation(location);
-    console.log(coordinates);
     displayShot(coordinates, activePlayer);
     deactivateBoards(playRound);
     switchActivePlayer();
@@ -120,7 +137,6 @@ export default function playGame() {
 // Displays the player's ships which are placed on the board
 function displayBoardShips(player) {
   const ships = player.playerPlacedShips;
-  console.log(ships);
   let board;
   if (player === player1) {
     board = gameController.board1;
@@ -134,6 +150,6 @@ function displayBoardShips(player) {
 }
 
 displayBoardShips(player1);
-console.log(player1.gameBoard.markedLocation);
+displayBoardShips(player2);
 
 playGame();

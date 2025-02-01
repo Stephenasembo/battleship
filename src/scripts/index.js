@@ -164,7 +164,7 @@ function createBoard() {
     }
     missedShots.add(JSON.stringify(location));
     missedShotsCoordinates.add(location);
-    return [...missedShotsCoordinates];
+    return 'missed shot';
   }
 
   function decodeLocation(locationId) {
