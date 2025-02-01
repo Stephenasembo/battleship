@@ -115,7 +115,7 @@ function createBoard() {
     return placedShips;
   }
 
-  function allShipsSunk() {
+  function allShipsSunk(placedBoardShips) {
     if (placedBoardShips.length === shipsSunk) {
       return true;
     }
@@ -152,7 +152,7 @@ function createBoard() {
       if (foundShip.hits === foundShip.length) {
         foundShip.isSunk = true;
         shipsSunk += 1;
-        if (allShipsSunk()) {
+        if (allShipsSunk(boardShips)) {
           return 'All player ships sunk';
         }
       }
