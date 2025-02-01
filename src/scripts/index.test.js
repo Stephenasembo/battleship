@@ -1,4 +1,5 @@
 import { createBoard, Ship, Player } from './index';
+import playGame from './driver';
 
 let board;
 
@@ -94,9 +95,15 @@ describe.skip('Board receives attack', () => {
   });
 });
 
-describe.only('Players constructed correctly', () => {
+describe('Players constructed correctly', () => {
   test('Player types identified', () => {
     expect(Player('computer').type).toBe('computer');
     expect(Player('human').type).toBe('human');
+  });
+});
+
+describe.only('Turn switching works', () => {
+  test('Player is now computer', () => {
+    expect(playGame().type).toEqual('computer');
   });
 });
