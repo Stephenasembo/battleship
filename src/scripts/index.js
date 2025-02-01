@@ -103,10 +103,12 @@ function createBoard() {
       }
       if (shipsArr[i].length === 2) {
         const shipLocation = placeIndividualShip(2, 8);
+        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 1) {
         const shipLocation = placeIndividualShip(1, 9);
+        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
         placedShips.push(shipLocation);
       }
     }
@@ -120,8 +122,11 @@ function createBoard() {
     return false;
   }
 
+  // const unplacedShips = createPlayerShip();
+  // const placedBoardShips = placeShip(unplacedShips);
+
   // Location to this function should be an array of coordinates
-  function receiveAttack(location) {
+  function receiveAttack(location, boardShips, unplacedShips) {
     // Check if the location has a ship
     if (markedLocation.has(JSON.stringify(location))) {
       // Check if spot is already hit
@@ -133,8 +138,9 @@ function createBoard() {
 
       // Find ship location on the board
       let foundShip = JSON.stringify(
-        placedBoardShips.filter((ship) => ship.find((value) => value[0] === col
-        && value[1] === row))[0],
+        boardShips.filter((ship) =>
+          ship.find((value) => value[0] === col && value[1] === row),
+        )[0],
       );
 
       // Find ship object which is targeted
@@ -150,8 +156,7 @@ function createBoard() {
           return 'All player ships sunk';
         }
       }
-      console.log('shot recieved')
-      return foundShip.hits;
+      return 'ship hit';
     }
     // Check if shot was already made
     if (missedShots.has(JSON.stringify(location))) {
@@ -164,8 +169,8 @@ function createBoard() {
 
   function decodeLocation(locationId) {
     const coordinatesArr = locationId.split('k');
-    const row = Number((coordinatesArr[1].split('row'))[1]);
-    const col = Number((coordinatesArr[2].split('col'))[1]);
+    const row = Number(coordinatesArr[1].split('row')[1]);
+    const col = Number(coordinatesArr[2].split('col')[1]);
     return [row, col];
   }
 
@@ -188,8 +193,9 @@ function createBoard() {
 
 function Player(type) {
   const gameBoard = createBoard();
-  const playerPlacedShips = gameBoard.placeShip(gameBoard.createPlayerShip());
-  return { gameBoard, type, playerPlacedShips };
+  const unplacedShips = gameBoard.createPlayerShip();
+  const playerPlacedShips = gameBoard.placeShip(unplacedShips);
+  return { gameBoard, type, playerPlacedShips, unplacedShips };
 }
 
 export { createBoard, Ship, Player };
