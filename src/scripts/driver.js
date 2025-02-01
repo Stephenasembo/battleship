@@ -100,10 +100,15 @@ export default function playGame() {
     gameController.player2Board.removeEventListener('click', playRoundFn);
   }
 
+  function displayShot(location, player) {
+    player.gameBoard.receiveAttack(location);
+  };
+
   function playRound(event) {
     const location = event.target.id;
     const coordinates = decodeLocation(location);
     console.log(coordinates);
+    displayShot(coordinates, activePlayer);
     deactivateBoards(playRound);
     switchActivePlayer();
     activatePlayerBoard(playRound);
@@ -115,6 +120,7 @@ export default function playGame() {
 // Displays the player's ships which are placed on the board
 function displayBoardShips(player) {
   const ships = player.playerPlacedShips;
+  console.log(ships);
   let board;
   if (player === player1) {
     board = gameController.board1;
@@ -128,6 +134,6 @@ function displayBoardShips(player) {
 }
 
 displayBoardShips(player1);
-displayBoardShips(player2);
+console.log(player1.gameBoard.markedLocation);
 
 playGame();

@@ -74,16 +74,15 @@ function createBoard() {
     for (let i = 0; i < size; i += 1) {
       const coordinates = JSON.stringify([col, row]);
       if (markedLocation.has(coordinates)) {
-        ship.forEach((spot) => {
-          markedLocation.delete(spot);
-        });
         return placeIndividualShip(size, boundary);
       }
       ship.push([col, row]);
-      markedLocation.add(coordinates);
       // The ships will extend horizontally
       col += 1;
     }
+    ship.forEach((spot) => {
+      markedLocation.add(JSON.stringify(spot));
+    });
     return ship;
   }
 
@@ -114,9 +113,6 @@ function createBoard() {
     return placedShips;
   }
 
-  const unplacedShips = createPlayerShip();
-  const placedBoardShips = placeShip(unplacedShips);
-
   function allShipsSunk() {
     if (placedBoardShips.length === shipsSunk) {
       return true;
@@ -124,6 +120,7 @@ function createBoard() {
     return false;
   }
 
+  // Location to this function should be an array of coordinates
   function receiveAttack(location) {
     // Check if the location has a ship
     if (markedLocation.has(JSON.stringify(location))) {
@@ -153,6 +150,7 @@ function createBoard() {
           return 'All player ships sunk';
         }
       }
+      console.log('shot recieved')
       return foundShip.hits;
     }
     // Check if shot was already made
