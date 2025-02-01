@@ -56,6 +56,8 @@ function displayController() {
   };
 }
 
+const gameController = displayController();
+
 export default function playGame() {
   let activePlayer = player1;
   function switchActivePlayer() {
@@ -65,10 +67,28 @@ export default function playGame() {
       activePlayer = player1;
     }
   }
-  switchActivePlayer();
-  return activePlayer;
+
+  function decodeLocation(locationId) {
+    const coordinatesArr = locationId.split('k');
+    const row = Number((coordinatesArr[1].split('row'))[1]);
+    const col = Number((coordinatesArr[2].split('col'))[1]);
+    return [row, col];
+  }
+
+  function playRound(event) {
+    const location = event.target.id;
+    const coordinates = decodeLocation(location);
+    console.log(coordinates);
+  }
+
+  // Listens for active player's actions on board
+  (function activatePlayerBoard() {
+    if (activePlayer === player1) {
+      gameController.player1Board.addEventListener('click', playRound);
+    } else if (activePlayer === player2) {
+      gameController.player2Board.addEventListener('click', playRound);
+    }
+  }());
 }
 
-const gameController = displayController();
-
-gameController.player1Board.addEventListener('click', player1.gameBoard.getDesiredLocation);
+playGame();
