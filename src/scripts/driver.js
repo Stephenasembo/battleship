@@ -20,22 +20,20 @@ function displayBoard(parent) {
       colBtn.setAttribute('id', `${boardName}krow${i}kcol${j}`);
       rowDiv.appendChild(colBtn);
     }
-    boardDiv.appendChild(rowDiv);
+    parent.appendChild(rowDiv);
   }
-  parent.appendChild(boardDiv);
   return { boardDiv, boardName };
 }
 
-function displayShips(ship, board, playerBoard) {
-  const location = ship.boardLocation;
-  for (let i = 0; i < location.length; i += 1) {
-    let startRow = location[i][0];
-    let startCol = location[i][1];
-    startCol = startCol.toString();
-    startRow = startRow.toString();
-    const displayStartRow = board.querySelector(`#${playerBoard}krow${startRow}`);
-    const displayStartCol = displayStartRow.querySelector(`#${playerBoard}krow${startRow}kcol${startCol}`);
-    displayStartCol.style.backgroundColor = 'red';
+function displayShips(ship, board, playerBoardName) {
+  for (let i = 0; i < ship.length; i += 1) {
+    let horizontal = ship[i][0];
+    let vertical = ship[i][1];
+    vertical = vertical.toString();
+    horizontal = horizontal.toString();
+    const displayVertical = document.querySelector(`#${playerBoardName}krow${vertical}`);
+    const displayHorizontal = document.querySelector(`#${playerBoardName}krow${vertical}kcol${horizontal}`);
+    displayHorizontal.style.backgroundColor = 'red';
   }
 }
 
@@ -47,12 +45,12 @@ function displayController() {
   const player2Board = document.querySelector('.two');
   const board1 = displayBoard(player1Board);
   const board2 = displayBoard(player2Board);
-  displayShips(testShip, board1.boardDiv, board1.boardName);
-  displayShips(testShip, board2.boardDiv, board2.boardName);
 
   return {
     player1Board,
     player2Board,
+    board1,
+    board2,
   };
 }
 
@@ -100,5 +98,22 @@ export default function playGame() {
 
   activatePlayerBoard(playRound);
 }
+
+// Displays the player's ships which are placed on the board
+function displayBoardShips(player) {
+  const ships = player.playerPlacedShips;
+  let board;
+  if (player === player1) {
+    board = gameController.board1;
+  } else if (player === player2) {
+    board = gameController.board2;
+  }
+  for (let i = 0; i < ships.length; i += 1) {
+    const shipLocation = ships[i];
+    displayShips(shipLocation, board, board.boardName);
+  }
+}
+
+displayBoardShips(player1);
 
 playGame();

@@ -107,7 +107,7 @@ function createBoard() {
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 1) {
-        const shipLocation = placeIndividualShip(1);
+        const shipLocation = placeIndividualShip(1, 9);
         placedShips.push(shipLocation);
       }
     }
@@ -190,7 +190,8 @@ function createBoard() {
 
 function Player(type) {
   const gameBoard = createBoard();
-  return { gameBoard, type };
+  const playerPlacedShips = gameBoard.placeShip(gameBoard.createPlayerShip());
+  return { gameBoard, type, playerPlacedShips };
 }
 
 export { createBoard, Ship, Player };

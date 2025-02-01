@@ -15,6 +15,6 @@
   border: 1px solid rgb(202, 202, 202);
 }
 
-.board > div > div {
+.board > div {
   height: 20px;
 }
