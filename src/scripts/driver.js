@@ -31,7 +31,6 @@ function displayShips(ship, board, playerBoardName) {
     let vertical = ship[i][1];
     vertical = vertical.toString();
     horizontal = horizontal.toString();
-    const displayVertical = document.querySelector(`#${playerBoardName}krow${vertical}`);
     const displayHorizontal = document.querySelector(`#${playerBoardName}krow${vertical}kcol${horizontal}`);
 
     // Add classes for specific styling
@@ -131,6 +130,13 @@ export default function playGame() {
     return false;
   }
 
+  function computerPlayer() {
+    const col = Math.floor(Math.random() * 10);
+    const row = Math.floor(Math.random() * 10);
+    const location = [col, row];
+    return location;
+  }
+
   function playRound(event, playerShot = null) {
     let coordinates;
     if (isGameWon) {
@@ -170,13 +176,6 @@ function displayBoardShips(player) {
     const shipLocation = ships[i];
     displayShips(shipLocation, board, board.boardName);
   }
-}
-
-function computerPlayer() {
-  const col = Math.floor(Math.random() * 10);
-  const row = Math.floor(Math.random() * 10);
-  const location = [col, row];
-  return location;
 }
 
 displayBoardShips(player1);

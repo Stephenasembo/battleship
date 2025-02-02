@@ -138,9 +138,8 @@ function createBoard() {
 
       // Find ship location on the board
       let foundShip = JSON.stringify(
-        boardShips.filter((ship) =>
-          ship.find((value) => value[0] === col && value[1] === row),
-        )[0],
+        boardShips.filter((ship) => ship.find((value) => value[0] === col
+        && value[1] === row))[0],
       );
 
       // Find ship object which is targeted
@@ -195,7 +194,12 @@ function Player(type) {
   const gameBoard = createBoard();
   const unplacedShips = gameBoard.createPlayerShip();
   const playerPlacedShips = gameBoard.placeShip(unplacedShips);
-  return { gameBoard, type, playerPlacedShips, unplacedShips };
+  return {
+    gameBoard,
+    type,
+    playerPlacedShips,
+    unplacedShips,
+  };
 }
 
 export { createBoard, Ship, Player };
