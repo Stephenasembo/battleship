@@ -117,18 +117,24 @@ export default function playGame() {
     );
     if (shot === 'ship hit') {
       spot.textContent = 'x';
-    } else if (shot === 'missed shot') {
-      spot.textContent = 'o';
+      return true;
     }
+    if (shot === 'missed shot') {
+      spot.textContent = 'o';
+      return true;
+    }
+    return false;
   }
 
   function playRound(event) {
     const location = event.target.id;
     const coordinates = decodeLocation(location);
-    displayShot(coordinates, activePlayer);
-    deactivateBoards(playRound);
-    switchActivePlayer();
-    activatePlayerBoard(playRound);
+    const isShotValid = displayShot(coordinates, activePlayer);
+    if (isShotValid) {
+      deactivateBoards(playRound);
+      switchActivePlayer();
+      activatePlayerBoard(playRound);
+    }
   }
 
   activatePlayerBoard(playRound);
