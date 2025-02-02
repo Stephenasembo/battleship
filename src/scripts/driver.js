@@ -88,10 +88,11 @@ export default function playGame() {
 
   // Listens for active player's actions on board
   function activatePlayerBoard(playRoundFn) {
+    // Activate enemy's board only
     if (activePlayer === player1) {
-      gameController.player1Board.addEventListener('click', playRoundFn);
-    } else if (activePlayer === player2) {
       gameController.player2Board.addEventListener('click', playRoundFn);
+    } else if (activePlayer === player2) {
+      gameController.player1Board.addEventListener('click', playRoundFn);
     }
   }
 
@@ -102,18 +103,19 @@ export default function playGame() {
 
   function displayShot(location, player) {
     let boardName;
+    let enemy;
     if (player === player1) {
-      boardName = 'p1';
-    } else {
       boardName = 'p2';
+      enemy = player2;
+    } else {
+      boardName = 'p1';
+      enemy = player1;
     }
-    console.log(player.playerPlacedShips);
-    console.log(player.gameBoard.markedLocation);
     const spot = document.querySelector(`#${boardName}krow${location[1]}kcol${location[0]}`);
-    const shot = player.gameBoard.receiveAttack(
+    const shot = enemy.gameBoard.receiveAttack(
       location,
-      player.playerPlacedShips,
-      player.unplacedShips,
+      enemy.playerPlacedShips,
+      enemy.unplacedShips,
     );
     if (shot === 'ship hit') {
       spot.textContent = 'x';
