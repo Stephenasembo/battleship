@@ -70,6 +70,7 @@ function displayController() {
 const gameController = displayController();
 
 export default function playGame() {
+  let isGameWon = false;
   let activePlayer = player1;
   function switchActivePlayer() {
     if (activePlayer === player1) {
@@ -123,10 +124,17 @@ export default function playGame() {
       spot.textContent = 'o';
       return true;
     }
+    if (shot === 'All player ships sunk') {
+      spot.textContent = 'x';
+      isGameWon = true;
+    }
     return false;
   }
 
   function playRound(event) {
+    if (isGameWon) {
+      return;
+    }
     const location = event.target.id;
     const coordinates = decodeLocation(location);
     const isShotValid = displayShot(coordinates, activePlayer);
