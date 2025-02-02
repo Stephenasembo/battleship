@@ -131,17 +131,26 @@ export default function playGame() {
     return false;
   }
 
-  function playRound(event) {
+  function playRound(event, playerShot = null) {
+    let coordinates;
     if (isGameWon) {
       return;
     }
-    const location = event.target.id;
-    const coordinates = decodeLocation(location);
+    if (event) {
+      const location = event.target.id;
+      coordinates = decodeLocation(location);
+    } else if (!event) {
+      coordinates = playerShot;
+    }
     const isShotValid = displayShot(coordinates, activePlayer);
     if (isShotValid) {
       deactivateBoards(playRound);
       switchActivePlayer();
       activatePlayerBoard(playRound);
+    }
+    if (activePlayer === player2) {
+      const computerShot = computerPlayer();
+      playRound(null, computerShot);
     }
   }
 
@@ -161,6 +170,13 @@ function displayBoardShips(player) {
     const shipLocation = ships[i];
     displayShips(shipLocation, board, board.boardName);
   }
+}
+
+function computerPlayer() {
+  const col = Math.floor(Math.random() * 10);
+  const row = Math.floor(Math.random() * 10);
+  const location = [col, row];
+  return location;
 }
 
 displayBoardShips(player1);
