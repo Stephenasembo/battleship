@@ -194,10 +194,21 @@ function openP2Form() {
   p2Dialog.show();
 }
 
+// Places player's ships randomly on the board
+function autoPlaceShips(event) {
+  let player;
+  if (event.target.id === 'p1Auto') {
+    player = player1;
+  } else if (event.target.id === 'p2Auto') {
+    player = player2;
+  }
+  player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
+  displayBoardShips(player);
+}
+
 p1ManualBtn.addEventListener('click', openP1Form);
 p2ManualBtn.addEventListener('click', openP2Form);
-
-displayBoardShips(player1);
-displayBoardShips(player2);
+p1AutoBtn.addEventListener('click', autoPlaceShips);
+p2AutoBtn.addEventListener('click', autoPlaceShips);
 
 playGame();

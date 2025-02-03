@@ -193,11 +193,9 @@ function createBoard() {
 function Player(type) {
   const gameBoard = createBoard();
   const unplacedShips = gameBoard.createPlayerShip();
-  const playerPlacedShips = gameBoard.placeShip(unplacedShips);
   return {
     gameBoard,
     type,
-    playerPlacedShips,
     unplacedShips,
   };
 }
