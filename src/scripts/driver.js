@@ -10,6 +10,64 @@ const p1AutoBtn = document.querySelector('#p1Auto');
 const p2ManualBtn = document.querySelector('#p2Manual');
 const p2AutoBtn = document.querySelector('#p2Auto');
 
+function cacheFormInputs() {
+  const p1SubmitBtn = document.querySelector('#p1Submit');
+  const p1CancelBtn = document.querySelector('#p1Cancel');
+  const p2SubmitBtn = document.querySelector('#p2Submit');
+  const p2CancelBtn = document.querySelector('#p2Cancel');
+
+  const p1size4 = p1Dialog.querySelector('#p1size4');
+  const p1size3a = document.querySelector('#p1size3a');
+  const p1size3b = document.querySelector('#p1size3b');
+  const p1size2a = document.querySelector('#p1size2a');
+  const p1size2b = document.querySelector('#p1size2b');
+  const p1size2c = document.querySelector('#p1size2c');
+  const p1size1a = document.querySelector('#p1size1a');
+  const p1size1b = document.querySelector('#p1size1b');
+  const p1size1c = document.querySelector('#p1size1c');
+  const p1size1d = document.querySelector('#p1size1d');
+
+  const p2size4 = document.querySelector('#p2size4');
+  const p2size3a = document.querySelector('#p2size3a');
+  const p2size3b = document.querySelector('#p2size3b');
+  const p2size2a = document.querySelector('#p2size2a');
+  const p2size2b = document.querySelector('#p2size2b');
+  const p2size2c = document.querySelector('#p2size2c');
+  const p2size1a = document.querySelector('#p2size1a');
+  const p2size1b = document.querySelector('#p2size1b');
+  const p2size1c = document.querySelector('#p2size1c');
+  const p2size1d = document.querySelector('#p2size1d');
+
+  return {
+    p1SubmitBtn,
+    p1CancelBtn,
+    p2SubmitBtn,
+    p2CancelBtn,
+
+    p1size4,
+    p1size3a,
+    p1size3b,
+    p1size2a,
+    p1size2b,
+    p1size2c,
+    p1size1a,
+    p1size1b,
+    p1size1c,
+    p1size1d,
+
+    p2size4,
+    p2size3a,
+    p2size3b,
+    p2size2a,
+    p2size2b,
+    p2size2c,
+    p2size1a,
+    p2size1b,
+    p2size1c,
+    p2size1d,
+  };
+}
+
 function displayBoard(parent) {
   const boardDiv = document.createElement('div');
   let boardName;
@@ -186,12 +244,65 @@ function displayBoardShips(player) {
   }
 }
 
+const p1Results = {};
+const p2Results = {};
+
+function getUserInput(event) {
+  event.preventDefault();
+  p1Dialog.close();
+  let results;
+  const inputs = cacheFormInputs();
+  if (event.target.id === 'p1Submit') {
+    results = {
+      size4: inputs.p1size4.value,
+      size3a: inputs.p1size3a.value,
+      size3b: inputs.p1size3b.value,
+      size2a: inputs.p1size2a.value,
+      size2b: inputs.p1size2b.value,
+      size2c: inputs.p1size2c.value,
+      size1a: inputs.p1size1a.value,
+      size1b: inputs.p1size1b.value,
+      size1c: inputs.p1size1c.value,
+      size1d: inputs.p1size1d.value,
+    };
+    Object.assign(p1Results, results);
+  } else if (event.targe.id === 'p2Submit') {
+    results = {
+      size4: inputs.p2size4.value,
+      size3a: inputs.p2size3a.value,
+      size3b: inputs.p2size3b.value,
+      size2a: inputs.p2size2a.value,
+      size2b: inputs.p2size2b.value,
+      size2c: inputs.p2size2c.value,
+      size1a: inputs.p2size1a.value,
+      size1b: inputs.p2size1b.value,
+      size1c: inputs.p2size1c.value,
+      size1d: inputs.p2size1d.value,
+    };
+    Object.assign(p2Results, results);
+  }
+
+  console.log(p1Results);
+  console.log(p2Results);
+}
+
+function cancelInput(event) {
+  event.preventDefault();
+  p1Dialog.close();
+}
+
 function openP1Form() {
   p1Dialog.show();
+  const formControls = cacheFormInputs();
+  formControls.p1SubmitBtn.addEventListener('click', getUserInput);
+  formControls.p1CancelBtn.addEventListener('click', cancelInput);
 }
 
 function openP2Form() {
   p2Dialog.show();
+  const formControls = cacheFormInputs();
+  formControls.p2SubmitBtn.addEventListener('click', getUserInput);
+  formControls.p2CancelBtn.addEventListener('click', cancelInput);
 }
 
 // Places player's ships randomly on the board
