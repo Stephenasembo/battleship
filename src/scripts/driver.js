@@ -3,6 +3,12 @@ import '../styles.css';
 
 const player1 = Player('human');
 const player2 = Player('computer');
+const p1Dialog = document.querySelector('#p1Dialog');
+const p2Dialog = document.querySelector('#p2Dialog');
+const p1ManualBtn = document.querySelector('#p1Manual');
+const p1AutoBtn = document.querySelector('#p1Auto');
+const p2ManualBtn = document.querySelector('#p2Manual');
+const p2AutoBtn = document.querySelector('#p2Auto');
 
 function displayBoard(parent) {
   const boardDiv = document.createElement('div');
@@ -179,6 +185,17 @@ function displayBoardShips(player) {
     displayShips(shipLocation, board, board.boardName);
   }
 }
+
+function openP1Form() {
+  p1Dialog.show();
+}
+
+function openP2Form() {
+  p2Dialog.show();
+}
+
+p1ManualBtn.addEventListener('click', openP1Form);
+p2ManualBtn.addEventListener('click', openP2Form);
 
 displayBoardShips(player1);
 displayBoardShips(player2);
