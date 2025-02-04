@@ -90,12 +90,18 @@ function displayBoard(parent) {
 }
 
 function displayShips(ship, playerBoardName) {
+  let horizontal;
+  let vertical;
   for (let i = 0; i < ship.length; i += 1) {
-    let horizontal = ship.boardLocation[i][0];
-    let vertical = ship.boardLocation[i][1];
+    if (ship.boardLocation) {
+      [horizontal, vertical] = ship.boardLocation[i];
+    } else {
+      [horizontal, vertical] = ship[i];
+    }
     vertical = vertical.toString();
     horizontal = horizontal.toString();
-    const displayHorizontal = document.querySelector(`#${playerBoardName}krow${vertical}kcol${horizontal}`);
+    const colId = `#${playerBoardName}krow${vertical}kcol${horizontal}`;
+    const displayHorizontal = document.querySelector(colId);
 
     // Add classes for specific styling
     displayHorizontal.classList.toggle('ship');
@@ -240,7 +246,7 @@ function displayBoardShips(player) {
   }
   for (let i = 0; i < ships.length; i += 1) {
     const shipLocation = ships[i];
-    displayShips(shipLocation, board, board.boardName);
+    displayShips(shipLocation, board.boardName);
   }
 }
 
