@@ -289,21 +289,25 @@ function cancelInput(event) {
   p1Dialog.close();
 }
 
-function testUserInput() {
+function testP1UserInput() {
   manualShipPlacement(player1, testInput);
+}
+
+function testP2UserInput() {
+  manualShipPlacement(player2, testInput);
 }
 
 function openP1Form() {
   p1Dialog.show();
   const formControls = cacheFormInputs();
-  formControls.p1SubmitBtn.addEventListener('click', testUserInput);
+  formControls.p1SubmitBtn.addEventListener('click', testP1UserInput);
   formControls.p1CancelBtn.addEventListener('click', cancelInput);
 }
 
 function openP2Form() {
   p2Dialog.show();
   const formControls = cacheFormInputs();
-  formControls.p2SubmitBtn.addEventListener('click', getUserInput);
+  formControls.p2SubmitBtn.addEventListener('click', testP2UserInput);
   formControls.p2CancelBtn.addEventListener('click', cancelInput);
 }
 
@@ -347,8 +351,14 @@ function manualShipPlacement(player, inputObj) {
     ships[i].boardLocation = location;
     player.playerPlacedShips = [];
     player.playerPlacedShips.push(ships[i]);
+    let boardName;
+    if (player === player1) {
+      boardName = 'p1';
+    } else {
+      boardName = 'p2';
+    }
     for (let k = 0; k < player.playerPlacedShips.length; k += 1) {
-      displayShips(player.playerPlacedShips[k], 'p1');
+      displayShips(player.playerPlacedShips[k], boardName);
     }
   }
 }
