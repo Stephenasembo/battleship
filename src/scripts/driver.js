@@ -93,11 +93,13 @@ function displayShips(ship, playerBoardName) {
   let horizontal;
   let vertical;
   for (let i = 0; i < ship.length; i += 1) {
+    // Only manually placed ships have a boardLocation property
     if (ship.boardLocation) {
       [horizontal, vertical] = ship.boardLocation[i];
     } else {
       [horizontal, vertical] = ship[i];
     }
+    // Select column occupied by ship
     vertical = vertical.toString();
     horizontal = horizontal.toString();
     const colId = `#${playerBoardName}krow${vertical}kcol${horizontal}`;
@@ -182,6 +184,7 @@ export default function playGame() {
       enemy = player1;
     }
     const spot = document.querySelector(`#${boardName}krow${location[1]}kcol${location[0]}`);
+    console.log(enemy.playerPlacedShips);
     const shot = enemy.gameBoard.receiveAttack(
       location,
       enemy.playerPlacedShips,
@@ -335,7 +338,7 @@ const testInput = {
   size3b: '1,1 2,1 3,1',
   size2a: '5,1 6,1',
   size2b: '8,1 9,1',
-  size2c: '1,2 2,2 3,2',
+  size2c: '1,2 2,2',
   size1a: '4,2',
   size1b: '5,3',
   size1c: '6,4',
@@ -345,6 +348,7 @@ const testInput = {
 // Place the ships based on coordinate input
 function manualShipPlacement(player, inputObj) {
   const ships = player.unplacedShips;
+  player.playerPlacedShips = [];
   const shipLocationsArr = Object.values(inputObj);
   for (let i = 0; i < shipLocationsArr.length; i += 1) {
     let location = shipLocationsArr[i];
@@ -355,18 +359,21 @@ function manualShipPlacement(player, inputObj) {
     }
     location = location.map((coordinates) => coordinates.map((element) => Number(element)));
     ships[i].boardLocation = location;
-    player.playerPlacedShips = [];
-    player.playerPlacedShips.push(ships[i]);
+    player.playerPlacedShips.push(location);
     let boardName;
     if (player === player1) {
       boardName = 'p1';
     } else {
       boardName = 'p2';
     }
-    for (let k = 0; k < player.playerPlacedShips.length; k += 1) {
-      displayShips(player.playerPlacedShips[k], boardName);
-    }
+    displayShips(ships[i], boardName);
   }
+  for (let i = 0; i < player.playerPlacedShips.length; i += 1) {
+    player.playerPlacedShips[i].forEach((coordinates) => {
+      player.gameBoard.markedLocation.add(JSON.stringify(coordinates));
+    });
+  }
+  console.log(player.gameBoard.markedLocation);
 }
 
 p1ManualBtn.addEventListener('click', openP1Form);

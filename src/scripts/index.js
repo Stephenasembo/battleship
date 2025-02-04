@@ -137,14 +137,12 @@ function createBoard() {
       const row = location[1];
 
       // Find ship location on the board
-      let foundShip = JSON.stringify(
-        boardShips.filter((ship) => ship.find((value) => value[0] === col
-        && value[1] === row))[0],
-      );
+      let foundShip = boardShips.filter((ship) => ship.find((value) => value[0] === col
+        && value[1] === row))[0];
 
       // Find ship object which is targeted
       foundShip = unplacedShips.find(
-        (ship) => ship.boardLocation === foundShip,
+        (ship) => JSON.stringify(ship.boardLocation) === JSON.stringify(foundShip),
       );
       foundShip.hit();
       shipsHit.add(JSON.stringify(location));
