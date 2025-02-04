@@ -282,9 +282,6 @@ function getUserInput(event) {
     };
     Object.assign(p2Results, results);
   }
-
-  console.log(p1Results);
-  console.log(p2Results);
 }
 
 function cancelInput(event) {
@@ -292,10 +289,14 @@ function cancelInput(event) {
   p1Dialog.close();
 }
 
+function testUserInput() {
+  manualShipPlacement(player1, testInput);
+}
+
 function openP1Form() {
   p1Dialog.show();
   const formControls = cacheFormInputs();
-  formControls.p1SubmitBtn.addEventListener('click', getUserInput);
+  formControls.p1SubmitBtn.addEventListener('click', testUserInput);
   formControls.p1CancelBtn.addEventListener('click', cancelInput);
 }
 
@@ -318,22 +319,37 @@ function autoPlaceShips(event) {
   displayBoardShips(player);
 }
 
+const testInput = {
+  size4: '0,0 1,0 2,0 3,0',
+  size3a: '5,0 6,0 7,0',
+  size3b: '1,1 2,1 3,1',
+  size2a: '5,1 6,1',
+  size2b: '8,1 9,1',
+  size2c: '1,2 2,2 3,2',
+  size1a: '4,2',
+  size1b: '5,3',
+  size1c: '6,4',
+  size1d: '7,4',
+};
+
 // Place the ships based on coordinate input
 function manualShipPlacement(player, inputObj) {
   const ships = player.unplacedShips;
-  let location = inputObj.size4;
-  location = location.split(' ');
-  location = location.map((coordinates) => coordinates.split(','));
-  for (let i = 0; i < location.length; i += 1) {
-    location[i] = location[i].map((coordinates) => Number(coordinates));
-  }
-  console.log(location);
-  location = location.map((coordinates) => coordinates.map((element) => Number(element)));
-  ships[0].boardLocation = location;
-  player.playerPlacedShips = [];
-  player.playerPlacedShips.push(ships[0]);
-  for (let i = 0; i < player.playerPlacedShips.length; i += 1) {
-    displayShips(player.playerPlacedShips[i], 'p1');
+  const shipLocationsArr = Object.values(inputObj);
+  for (let i = 0; i < shipLocationsArr.length; i += 1) {
+    let location = shipLocationsArr[i];
+    location = location.split(' ');
+    location = location.map((coordinates) => coordinates.split(','));
+    for (let j = 0; j < location.length; j += 1) {
+      location[j] = location[j].map((coordinates) => Number(coordinates));
+    }
+    location = location.map((coordinates) => coordinates.map((element) => Number(element)));
+    ships[i].boardLocation = location;
+    player.playerPlacedShips = [];
+    player.playerPlacedShips.push(ships[i]);
+    for (let k = 0; k < player.playerPlacedShips.length; k += 1) {
+      displayShips(player.playerPlacedShips[k], 'p1');
+    }
   }
 }
 
