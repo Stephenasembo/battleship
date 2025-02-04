@@ -93,22 +93,22 @@ function createBoard() {
     for (let i = 0; i < shipsArr.length; i += 1) {
       if (shipsArr[i].length === 4) {
         const shipLocation = placeIndividualShip(4, 6);
-        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
+        shipsArr[i].boardLocation = shipLocation;
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 3) {
         const shipLocation = placeIndividualShip(3, 7);
-        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
+        shipsArr[i].boardLocation = shipLocation;
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 2) {
         const shipLocation = placeIndividualShip(2, 8);
-        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
+        shipsArr[i].boardLocation = shipLocation;
         placedShips.push(shipLocation);
       }
       if (shipsArr[i].length === 1) {
         const shipLocation = placeIndividualShip(1, 9);
-        shipsArr[i].boardLocation = JSON.stringify(shipLocation);
+        shipsArr[i].boardLocation = shipLocation;
         placedShips.push(shipLocation);
       }
     }
