@@ -136,8 +136,12 @@ function createBoard() {
 
       // Find ship location on the board
       // The result is nested in another array by filter method hence we access index 0
-      let foundShip = boardShips.filter((ship) => ship.find((value) => value[0] === col
-      && value[1] === row))[0];
+      let foundShip = boardShips.filter((ship) => {
+        function comparison(array, value) {
+          return array[0] === value[0] && array[1] === value[1];
+        }
+        return ship.find((value) => comparison([col, row], value));
+      })[0];
 
       // Find ship object which is targeted
       foundShip = unplacedShips.find((ship) => {
