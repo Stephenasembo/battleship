@@ -253,6 +253,16 @@ function displayBoardShips(player) {
   }
 }
 
+function deactivatePlacement(player) {
+  if (player === player1) {
+    p1AutoBtn.removeEventListener('click', autoPlaceShips);
+    p1ManualBtn.removeEventListener('click', openP1Form);
+  } else if (player === player2) {
+    p2AutoBtn.removeEventListener('click', autoPlaceShips);
+    p2ManualBtn.removeEventListener('click', openP2Form);
+  }
+}
+
 const p1Results = {};
 const p2Results = {};
 
@@ -300,10 +310,14 @@ function cancelInput(event) {
 
 function testP1UserInput() {
   manualShipPlacement(player1, testInput);
+  player1.isReady = true;
+  deactivatePlacement(player1);
 }
 
 function testP2UserInput() {
   manualShipPlacement(player2, testInput);
+  player2.isReady = true;
+  deactivatePlacement(player2);
 }
 
 function openP1Form() {
@@ -330,6 +344,8 @@ function autoPlaceShips(event) {
   }
   player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
   displayBoardShips(player);
+  player.isReady = true;
+  deactivatePlacement(player);
 }
 
 const testInput = {
