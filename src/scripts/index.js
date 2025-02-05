@@ -123,9 +123,6 @@ function createBoard() {
     return false;
   }
 
-  // const unplacedShips = createPlayerShip();
-  // const placedBoardShips = placeShip(unplacedShips);
-
   // Location to this function should be an array of coordinates
   function receiveAttack(location, boardShips, unplacedShips) {
     // Check if the location has a ship
@@ -138,13 +135,16 @@ function createBoard() {
       const row = location[1];
 
       // Find ship location on the board
+      // The result is nested in another array by filter method hence we access index 0
       let foundShip = boardShips.filter((ship) => ship.find((value) => value[0] === col
-        && value[1] === row))[0];
+      && value[1] === row))[0];
 
       // Find ship object which is targeted
-      foundShip = unplacedShips.find(
-        (ship) => JSON.stringify(ship.boardLocation) === JSON.stringify(foundShip),
-      );
+      foundShip = unplacedShips.find((ship) => {
+        const shipBoardLocation = JSON.stringify(ship.boardLocation);
+        const shipFound = JSON.stringify(foundShip);
+        return shipBoardLocation === shipFound;
+      });
       foundShip.hit();
       shipsHit.add(JSON.stringify(location));
       if (foundShip.hits === foundShip.length) {
@@ -166,18 +166,6 @@ function createBoard() {
     return 'missed shot';
   }
 
-  function decodeLocation(locationId) {
-    const coordinatesArr = locationId.split('k');
-    const row = Number(coordinatesArr[1].split('row')[1]);
-    const col = Number(coordinatesArr[2].split('col')[1]);
-    return [row, col];
-  }
-
-  function getDesiredLocation(event) {
-    console.log(decodeLocation(event.target.id));
-    return event.target.id;
-  }
-
   return {
     board,
     getRandomLocation,
@@ -186,7 +174,6 @@ function createBoard() {
     markedLocation,
     receiveAttack,
     missedShots,
-    getDesiredLocation,
     shipsHit,
     shipsSunkArr,
   };
