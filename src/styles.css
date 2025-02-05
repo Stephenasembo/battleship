@@ -55,7 +55,7 @@ button {
   display: flex;
 }
 
-.shipPlacement > button {
+#p1ShipPlacement > button, #p2ShipPlacement > button {
   margin: 10px;
   padding: 10px;
   border-radius: 16px;

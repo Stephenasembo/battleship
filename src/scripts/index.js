@@ -33,6 +33,7 @@ function createBoard() {
   const shipsHit = new Set();
   const missedShotsCoordinates = new Set();
   let shipsSunk = 0;
+  const shipsSunkArr = [];
 
   function getRandomLocation(boundary = 0) {
     const row = Math.floor(Math.random() * 10);
@@ -148,6 +149,7 @@ function createBoard() {
       shipsHit.add(JSON.stringify(location));
       if (foundShip.hits === foundShip.length) {
         foundShip.isSunk = true;
+        shipsSunkArr.push(foundShip);
         shipsSunk += 1;
         if (allShipsSunk(boardShips)) {
           return 'All player ships sunk';
@@ -185,6 +187,8 @@ function createBoard() {
     receiveAttack,
     missedShots,
     getDesiredLocation,
+    shipsHit,
+    shipsSunkArr,
   };
 }
 

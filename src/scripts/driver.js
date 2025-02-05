@@ -9,6 +9,8 @@ const p1ManualBtn = document.querySelector('#p1Manual');
 const p1AutoBtn = document.querySelector('#p1Auto');
 const p2ManualBtn = document.querySelector('#p2Manual');
 const p2AutoBtn = document.querySelector('#p2Auto');
+const p1ScoreBoard = document.querySelector('#p1ScoreBoard');
+const p2ScoreBoard = document.querySelector('#p2ScoreBoard');
 
 function cacheFormInputs() {
   const p1SubmitBtn = document.querySelector('#p1Submit');
@@ -70,11 +72,14 @@ function cacheFormInputs() {
 
 function displayBoard(parent) {
   const boardDiv = document.createElement('div');
+  const boardPara = document.createElement('p');
   let boardName;
   if (parent.classList[1] === 'one') {
     boardName = 'p1';
+    boardPara.textContent = 'Player1\'s board';
   } else if (parent.classList[1] === 'two') {
     boardName = 'p2';
+    boardPara.textContent = 'Player2\'s board';
   }
   for (let i = 0; i < 10; i += 1) {
     const rowDiv = document.createElement('div');
@@ -86,7 +91,22 @@ function displayBoard(parent) {
     }
     parent.appendChild(rowDiv);
   }
+  parent.appendChild(boardPara);
   return { boardDiv, boardName };
+}
+
+function displayScore(player, enemy) {
+  let hitsPara;
+  let sunkSHipsPara;
+  if (player === player1) {
+    hitsPara = document.querySelector('#p1Hits');
+    sunkSHipsPara = document.querySelector('#p1SunkShips');
+  } else {
+    hitsPara = document.querySelector('#p2Hits');
+    sunkSHipsPara = document.querySelector('#p2SunkShips');
+  }
+  hitsPara.textContent = `You have ${enemy.gameBoard.shipsHit.size} hits on the enemy's ships.`;
+  sunkSHipsPara.textContent = `You have sunk ${enemy.gameBoard.shipsSunkArr.length} enemy ships.`;
 }
 
 function displayShips(ship, playerBoardName) {
@@ -184,12 +204,12 @@ export default function playGame() {
       enemy = player1;
     }
     const spot = document.querySelector(`#${boardName}krow${location[1]}kcol${location[0]}`);
-    console.log(enemy.playerPlacedShips);
     const shot = enemy.gameBoard.receiveAttack(
       location,
       enemy.playerPlacedShips,
       enemy.unplacedShips,
     );
+    displayScore(player, enemy);
     if (shot === 'ship hit') {
       spot.textContent = 'x';
       return true;
