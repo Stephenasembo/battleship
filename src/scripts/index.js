@@ -187,11 +187,13 @@ function Player(type) {
   const gameBoard = createBoard();
   const unplacedShips = gameBoard.createPlayerShip();
   const isReady = false;
+  const playerPlacedShips = [];
   return {
     gameBoard,
     type,
     unplacedShips,
     isReady,
+    playerPlacedShips,
   };
 }
 

@@ -1,4 +1,4 @@
-import { Ship, Player } from './index';
+import { Player } from './index';
 import '../styles.css';
 
 const player1 = Player('human');
@@ -9,8 +9,6 @@ const p1ManualBtn = document.querySelector('#p1Manual');
 const p1AutoBtn = document.querySelector('#p1Auto');
 const p2ManualBtn = document.querySelector('#p2Manual');
 const p2AutoBtn = document.querySelector('#p2Auto');
-const p1ScoreBoard = document.querySelector('#p1ScoreBoard');
-const p2ScoreBoard = document.querySelector('#p2ScoreBoard');
 
 function cacheFormInputs() {
   const p1SubmitBtn = document.querySelector('#p1Submit');
@@ -76,10 +74,10 @@ function displayBoard(parent) {
   let boardName;
   if (parent.classList[1] === 'one') {
     boardName = 'p1';
-    boardPara.textContent = 'Player1\'s board';
+    boardPara.textContent = "Player1's board";
   } else if (parent.classList[1] === 'two') {
     boardName = 'p2';
-    boardPara.textContent = 'Player2\'s board';
+    boardPara.textContent = "Player2's board";
   }
   for (let i = 0; i < 10; i += 1) {
     const rowDiv = document.createElement('div');
@@ -141,9 +139,6 @@ function displayShips(ship, playerBoardName) {
   }
 }
 
-const testShip = new Ship(4);
-testShip.boardLocation = [[0, 0], [0, 1], [0, 2], [0, 3]];
-
 function displayController() {
   const player1Board = document.querySelector('.one');
   const player2Board = document.querySelector('.two');
@@ -173,8 +168,8 @@ export default function playGame() {
 
   function decodeLocation(locationId) {
     const coordinatesArr = locationId.split('k');
-    const row = Number((coordinatesArr[1].split('row'))[1]);
-    const col = Number((coordinatesArr[2].split('col'))[1]);
+    const row = Number(coordinatesArr[1].split('row')[1]);
+    const col = Number(coordinatesArr[2].split('col')[1]);
     return [col, row];
   }
 
@@ -203,7 +198,9 @@ export default function playGame() {
       boardName = 'p1';
       enemy = player1;
     }
-    const spot = document.querySelector(`#${boardName}krow${location[1]}kcol${location[0]}`);
+    const spot = document.querySelector(
+      `#${boardName}krow${location[1]}kcol${location[0]}`,
+    );
     const shot = enemy.gameBoard.receiveAttack(
       location,
       enemy.playerPlacedShips,
@@ -273,16 +270,6 @@ function displayBoardShips(player) {
   }
 }
 
-function deactivatePlacement(player) {
-  if (player === player1) {
-    p1AutoBtn.removeEventListener('click', autoPlaceShips);
-    p1ManualBtn.removeEventListener('click', openP1Form);
-  } else if (player === player2) {
-    p2AutoBtn.removeEventListener('click', autoPlaceShips);
-    p2ManualBtn.removeEventListener('click', openP2Form);
-  }
-}
-
 function startGame() {
   if (player1.isReady && player2.isReady) {
     playGame();
@@ -291,6 +278,74 @@ function startGame() {
 
 const p1Results = {};
 const p2Results = {};
+
+function cancelInput(event) {
+  event.preventDefault();
+  p1Dialog.close();
+}
+
+// Places player's ships randomly on the board
+function autoPlaceShips(event) {
+  let player;
+  if (event.target.id === 'p1Auto') {
+    player = player1;
+  } else if (event.target.id === 'p2Auto') {
+    player = player2;
+  }
+  player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
+  displayBoardShips(player);
+  player.isReady = true;
+  deactivatePlacement(player);
+  startGame();
+}
+
+const testInput = {
+  size4: '0,0 1,0 2,0 3,0',
+  size3a: '5,0 6,0 7,0',
+  size3b: '1,1 2,1 3,1',
+  size2a: '5,1 6,1',
+  size2b: '8,1 9,1',
+  size2c: '1,2 2,2',
+  size1a: '4,2',
+  size1b: '5,3',
+  size1c: '6,4',
+  size1d: '7,4',
+};
+
+// Place the ships based on coordinate input
+function manualShipPlacement(player, inputObj) {
+  const ships = player.unplacedShips;
+  const shipLocationsArr = Object.values(inputObj);
+  for (let i = 0; i < shipLocationsArr.length; i += 1) {
+    let location = shipLocationsArr[i];
+    location = location.split(' ');
+    location = location.map((coordinates) => coordinates.split(','));
+    for (let j = 0; j < location.length; j += 1) {
+      location[j] = location[j].map((coordinates) => Number(coordinates));
+    }
+
+    // Convert coordinates into numbers
+    location = location.map((coordinates) => {
+      const array = coordinates;
+      return array.map((element) => Number(element));
+    });
+
+    ships[i].boardLocation = location;
+    player.playerPlacedShips.push(location);
+    let boardName;
+    if (player === player1) {
+      boardName = 'p1';
+    } else {
+      boardName = 'p2';
+    }
+    displayShips(ships[i], boardName);
+  }
+  for (let i = 0; i < player.playerPlacedShips.length; i += 1) {
+    player.playerPlacedShips[i].forEach((coordinates) => {
+      player.gameBoard.markedLocation.add(JSON.stringify(coordinates));
+    });
+  }
+}
 
 function getUserInput(event) {
   event.preventDefault();
@@ -329,11 +384,6 @@ function getUserInput(event) {
   }
 }
 
-function cancelInput(event) {
-  event.preventDefault();
-  p1Dialog.close();
-}
-
 function testP1UserInput() {
   manualShipPlacement(player1, testInput);
   player1.isReady = true;
@@ -362,63 +412,14 @@ function openP2Form() {
   formControls.p2CancelBtn.addEventListener('click', cancelInput);
 }
 
-// Places player's ships randomly on the board
-function autoPlaceShips(event) {
-  let player;
-  if (event.target.id === 'p1Auto') {
-    player = player1;
-  } else if (event.target.id === 'p2Auto') {
-    player = player2;
+function deactivatePlacement(player) {
+  if (player === player1) {
+    p1AutoBtn.removeEventListener('click', autoPlaceShips);
+    p1ManualBtn.removeEventListener('click', openP1Form);
+  } else if (player === player2) {
+    p2AutoBtn.removeEventListener('click', autoPlaceShips);
+    p2ManualBtn.removeEventListener('click', openP2Form);
   }
-  player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
-  displayBoardShips(player);
-  player.isReady = true;
-  deactivatePlacement(player);
-  startGame();
-}
-
-const testInput = {
-  size4: '0,0 1,0 2,0 3,0',
-  size3a: '5,0 6,0 7,0',
-  size3b: '1,1 2,1 3,1',
-  size2a: '5,1 6,1',
-  size2b: '8,1 9,1',
-  size2c: '1,2 2,2',
-  size1a: '4,2',
-  size1b: '5,3',
-  size1c: '6,4',
-  size1d: '7,4',
-};
-
-// Place the ships based on coordinate input
-function manualShipPlacement(player, inputObj) {
-  const ships = player.unplacedShips;
-  player.playerPlacedShips = [];
-  const shipLocationsArr = Object.values(inputObj);
-  for (let i = 0; i < shipLocationsArr.length; i += 1) {
-    let location = shipLocationsArr[i];
-    location = location.split(' ');
-    location = location.map((coordinates) => coordinates.split(','));
-    for (let j = 0; j < location.length; j += 1) {
-      location[j] = location[j].map((coordinates) => Number(coordinates));
-    }
-    location = location.map((coordinates) => coordinates.map((element) => Number(element)));
-    ships[i].boardLocation = location;
-    player.playerPlacedShips.push(location);
-    let boardName;
-    if (player === player1) {
-      boardName = 'p1';
-    } else {
-      boardName = 'p2';
-    }
-    displayShips(ships[i], boardName);
-  }
-  for (let i = 0; i < player.playerPlacedShips.length; i += 1) {
-    player.playerPlacedShips[i].forEach((coordinates) => {
-      player.gameBoard.markedLocation.add(JSON.stringify(coordinates));
-    });
-  }
-  console.log(player.gameBoard.markedLocation);
 }
 
 p1ManualBtn.addEventListener('click', openP1Form);
