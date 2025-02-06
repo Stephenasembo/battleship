@@ -11,10 +11,10 @@ import { dom } from '../dom';
 
 // No more placement of ships after choice is made
 function deactivatePlacement(player, autoPlaceFn) {
-  if (player.type === player1) {
+  if (player.type === 'human') {
     dom.p1AutoBtn.removeEventListener('click', autoPlaceFn);
     dom.p1ManualBtn.removeEventListener('click', openP1Form);
-  } else if (player === player2) {
+  } else if (player.type === 'computer') {
     dom.p2AutoBtn.removeEventListener('click', autoPlaceFn);
     dom.p2ManualBtn.removeEventListener('click', openP2Form);
   }
@@ -68,6 +68,7 @@ function manualShipPlacement(player, inputObj) {
       player.gameBoard.markedLocation.add(JSON.stringify(coordinates));
     });
   }
+  deactivatePlacement(player, autoPlaceShips);
 }
 
 export { deactivatePlacement, autoPlaceShips, manualShipPlacement };
