@@ -6,6 +6,9 @@ const dom = (function cacheDom() {
   const p2ManualBtn = document.querySelector('#p2Manual');
   const p2AutoBtn = document.querySelector('#p2Auto');
 
+  const player1Board = document.querySelector('.one');
+  const player2Board = document.querySelector('.two');
+
   return {
     p1Dialog,
     p2Dialog,
@@ -13,6 +16,8 @@ const dom = (function cacheDom() {
     p1AutoBtn,
     p2ManualBtn,
     p2AutoBtn,
+    player1Board,
+    player2Board,
   };
 }());
 

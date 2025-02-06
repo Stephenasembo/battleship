@@ -1,26 +1,29 @@
-function displayBoard(parent) {
-  const boardDiv = document.createElement('div');
-  const boardPara = document.createElement('p');
-  let boardName;
-  if (parent.classList[1] === 'one') {
-    boardName = 'p1';
-    boardPara.textContent = "Player1's board";
-  } else if (parent.classList[1] === 'two') {
-    boardName = 'p2';
-    boardPara.textContent = "Player2's board";
-  }
-  for (let i = 0; i < 10; i += 1) {
-    const rowDiv = document.createElement('div');
-    rowDiv.setAttribute('id', `${boardName}krow${i}`);
-    for (let j = 0; j < 10; j += 1) {
-      const colBtn = document.createElement('button');
-      colBtn.setAttribute('id', `${boardName}krow${i}kcol${j}`);
-      rowDiv.appendChild(colBtn);
+function displayBoards(arr) {
+  // We only have 2 player boards
+  for (let i = 0; i < 2; i += 1) {
+    let boardName;
+    const boardPara = document.createElement('p');
+    if (i === 0) {
+      boardName = 'p1';
+      boardPara.textContent = "Player1's board";
+    } else {
+      boardName = 'p2';
+      boardPara.textContent = "Player2's board";
     }
-    parent.appendChild(rowDiv);
+
+    // 10 rows * 10 columns board
+    for (let j = 0; j < 10; j += 1) {
+      const rowDiv = document.createElement('div');
+      rowDiv.setAttribute('id', `${boardName}krow${j}`);
+      for (let k = 0; k < 10; k += 1) {
+        const colBtn = document.createElement('button');
+        colBtn.setAttribute('id', `${boardName}krow${j}kcol${k}`);
+        rowDiv.appendChild(colBtn);
+      }
+      arr[i].displayBoard.appendChild(rowDiv);
+    }
+    arr[i].displayBoard.appendChild(boardPara);
   }
-  parent.appendChild(boardPara);
-  return { boardDiv, boardName };
 }
 
 function displayScore(player, enemy) {
@@ -69,38 +72,24 @@ function displayShips(ship, playerBoardName) {
   }
 }
 
-function displayController() {
-  const player1Board = document.querySelector('.one');
-  const player2Board = document.querySelector('.two');
-  const board1 = displayBoard(player1Board);
-  const board2 = displayBoard(player2Board);
-
-  return {
-    player1Board,
-    player2Board,
-    board1,
-    board2,
-  };
-}
-
 // Displays the player's ships which are placed on the board
-function displayBoardShips(player, gameController) {
+function displayBoardShips(player) {
   const ships = player.playerPlacedShips;
-  let board;
+  let name;
   if (player.type === 'human') {
-    board = gameController.board1;
-  } else if (player === 'computer') {
-    board = gameController.board2;
+    name = 'p1';
+  } else if (player.type === 'computer') {
+    name = 'p2';
   }
   for (let i = 0; i < ships.length; i += 1) {
     const shipLocation = ships[i];
-    displayShips(shipLocation, board.boardName);
+    displayShips(shipLocation, name);
   }
 }
 
 export {
+  displayBoards,
   displayScore,
   displayShips,
-  displayController,
   displayBoardShips,
 };

@@ -2,16 +2,19 @@ import { Player } from './index';
 import '../styles.css';
 import { dom, cacheFormInputs } from './dom';
 import {
+  displayBoards,
   displayScore,
   displayShips,
-  displayController,
   displayBoardShips,
 } from './ui';
 
 const player1 = Player('human');
 const player2 = Player('computer');
 
-const gameController = displayController();
+player1.displayBoard = dom.player1Board;
+player2.displayBoard = dom.player2Board;
+
+displayBoards([player1, player2]);
 
 export default function playGame() {
   let isGameWon = false;
@@ -35,15 +38,15 @@ export default function playGame() {
   function activatePlayerBoard(playRoundFn) {
     // Activate enemy's board only
     if (activePlayer === player1) {
-      gameController.player2Board.addEventListener('click', playRoundFn);
+      player2.displayBoard.addEventListener('click', playRoundFn);
     } else if (activePlayer === player2) {
-      gameController.player1Board.addEventListener('click', playRoundFn);
+      player1.displayBoard.addEventListener('click', playRoundFn);
     }
   }
 
   function deactivateBoards(playRoundFn) {
-    gameController.player1Board.removeEventListener('click', playRoundFn);
-    gameController.player2Board.removeEventListener('click', playRoundFn);
+    player1.displayBoard.removeEventListener('click', playRoundFn);
+    player2.displayBoard.removeEventListener('click', playRoundFn);
   }
 
   function displayShot(location, player) {
@@ -136,7 +139,7 @@ function autoPlaceShips(event) {
     player = player2;
   }
   player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
-  displayBoardShips(player, gameController);
+  displayBoardShips(player);
   player.isReady = true;
   deactivatePlacement(player);
   startGame();
