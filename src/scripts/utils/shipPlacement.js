@@ -5,6 +5,7 @@ import {
   openP1Form,
   openP2Form
 } from '../driver';
+
 import { displayBoardShips, displayShips } from '../ui';
 import { dom } from '../dom';
 
@@ -32,7 +33,6 @@ function autoPlaceShips(event) {
   displayBoardShips(player);
   player.isReady = true;
   deactivatePlacement(player, autoPlaceShips);
-  // startGame();
 }
 
 // Place the ships based on coordinate input
