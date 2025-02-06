@@ -8,7 +8,7 @@ import {
   displayBoardShips,
 } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
-import { openP1Form, openP2Form, testInput } from './utils/form';
+import { getUserInput, openP1Form, openP2Form } from './utils/form';
 
 const player1 = Player('human');
 const player2 = Player('computer');
@@ -124,17 +124,16 @@ function startGame() {
   }
 }
 
-// const p1Results = {};
-// const p2Results = {};
-
-function testP1UserInput() {
-  manualShipPlacement(player1, testInput);
+function readP1UserInput() {
+  const p1Input = getUserInput(player1);
+  manualShipPlacement(player1, p1Input);
   player1.isReady = true;
   deactivatePlacement(player1);
 }
 
-function testP2UserInput() {
-  manualShipPlacement(player2, testInput);
+function readP2UserInput() {
+  const p2Input = getUserInput(player1);
+  manualShipPlacement(player2, p2Input);
   player2.isReady = true;
   deactivatePlacement(player2);
 }
@@ -150,6 +149,6 @@ export {
   startGame,
   openP1Form,
   openP2Form,
-  testP1UserInput,
-  testP2UserInput,
+  readP1UserInput,
+  readP2UserInput,
 };
