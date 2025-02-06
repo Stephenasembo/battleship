@@ -7,6 +7,7 @@ import {
   displayShips,
   displayBoardShips,
 } from './ui';
+import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 
 const player1 = Player('human');
 const player2 = Player('computer');
@@ -130,21 +131,6 @@ function cancelInput(event) {
   dom.p1Dialog.close();
 }
 
-// Places player's ships randomly on the board
-function autoPlaceShips(event) {
-  let player;
-  if (event.target.id === 'p1Auto') {
-    player = player1;
-  } else if (event.target.id === 'p2Auto') {
-    player = player2;
-  }
-  player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
-  displayBoardShips(player);
-  player.isReady = true;
-  deactivatePlacement(player);
-  startGame();
-}
-
 const testInput = {
   size4: '0,0 1,0 2,0 3,0',
   size3a: '5,0 6,0 7,0',
@@ -157,41 +143,6 @@ const testInput = {
   size1c: '6,4',
   size1d: '7,4',
 };
-
-// Place the ships based on coordinate input
-function manualShipPlacement(player, inputObj) {
-  const ships = player.unplacedShips;
-  const shipLocationsArr = Object.values(inputObj);
-  for (let i = 0; i < shipLocationsArr.length; i += 1) {
-    let location = shipLocationsArr[i];
-    location = location.split(' ');
-    location = location.map((coordinates) => coordinates.split(','));
-    for (let j = 0; j < location.length; j += 1) {
-      location[j] = location[j].map((coordinates) => Number(coordinates));
-    }
-
-    // Convert coordinates into numbers
-    location = location.map((coordinates) => {
-      const array = coordinates;
-      return array.map((element) => Number(element));
-    });
-
-    ships[i].boardLocation = location;
-    player.playerPlacedShips.push(location);
-    let boardName;
-    if (player === player1) {
-      boardName = 'p1';
-    } else {
-      boardName = 'p2';
-    }
-    displayShips(ships[i], boardName);
-  }
-  for (let i = 0; i < player.playerPlacedShips.length; i += 1) {
-    player.playerPlacedShips[i].forEach((coordinates) => {
-      player.gameBoard.markedLocation.add(JSON.stringify(coordinates));
-    });
-  }
-}
 
 function getUserInput(event) {
   event.preventDefault();
@@ -234,14 +185,12 @@ function testP1UserInput() {
   manualShipPlacement(player1, testInput);
   player1.isReady = true;
   deactivatePlacement(player1);
-  startGame();
 }
 
 function testP2UserInput() {
   manualShipPlacement(player2, testInput);
   player2.isReady = true;
   deactivatePlacement(player2);
-  startGame();
 }
 
 function openP1Form() {
@@ -258,17 +207,15 @@ function openP2Form() {
   formControls.p2CancelBtn.addEventListener('click', cancelInput);
 }
 
-function deactivatePlacement(player) {
-  if (player === player1) {
-    dom.p1AutoBtn.removeEventListener('click', autoPlaceShips);
-    dom.p1ManualBtn.removeEventListener('click', openP1Form);
-  } else if (player === player2) {
-    dom.p2AutoBtn.removeEventListener('click', autoPlaceShips);
-    dom.p2ManualBtn.removeEventListener('click', openP2Form);
-  }
-}
-
 dom.p1ManualBtn.addEventListener('click', openP1Form);
 dom.p2ManualBtn.addEventListener('click', openP2Form);
 dom.p1AutoBtn.addEventListener('click', autoPlaceShips);
 dom.p2AutoBtn.addEventListener('click', autoPlaceShips);
+
+export {
+  player1,
+  player2,
+  startGame,
+  openP1Form,
+  openP2Form,
+};
