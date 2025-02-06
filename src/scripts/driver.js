@@ -1,12 +1,7 @@
 import { Player } from './index';
 import '../styles.css';
-import { dom, cacheFormInputs } from './dom';
-import {
-  displayBoards,
-  displayScore,
-  displayShips,
-  displayBoardShips,
-} from './ui';
+import { dom } from './dom';
+import { displayBoards, displayScore } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
 
@@ -124,29 +119,50 @@ function startGame() {
   }
 }
 
+function autoPlacementUtil(event) {
+  let player;
+  if (event.target.id === 'p1Auto') {
+    player = player1;
+  } else if (event.target.id === 'p2Auto') {
+    player = player2;
+  }
+  autoPlaceShips(player);
+  startGame();
+}
+
+function manualPlacementUtil(player, inputObj) {
+  let boardName;
+  if (player === player1) {
+    boardName = 'p1';
+  } else {
+    boardName = 'p2';
+  }
+  manualShipPlacement(player, inputObj, boardName);
+  startGame();
+}
+
 function readP1UserInput() {
   const p1Input = getUserInput(player1);
-  manualShipPlacement(player1, p1Input);
+  manualPlacementUtil(player1, p1Input);
   player1.isReady = true;
   deactivatePlacement(player1);
 }
 
 function readP2UserInput() {
   const p2Input = getUserInput(player1);
-  manualShipPlacement(player2, p2Input);
+  manualPlacementUtil(player2, p2Input);
   player2.isReady = true;
   deactivatePlacement(player2);
 }
 
 dom.p1ManualBtn.addEventListener('click', openP1Form);
 dom.p2ManualBtn.addEventListener('click', openP2Form);
-dom.p1AutoBtn.addEventListener('click', autoPlaceShips);
-dom.p2AutoBtn.addEventListener('click', autoPlaceShips);
+dom.p1AutoBtn.addEventListener('click', autoPlacementUtil);
+dom.p2AutoBtn.addEventListener('click', autoPlacementUtil);
 
 export {
   player1,
   player2,
-  startGame,
   openP1Form,
   openP2Form,
   readP1UserInput,

@@ -1,10 +1,4 @@
-import {
-  player1,
-  player2,
-  startGame,
-  openP1Form,
-  openP2Form
-} from '../driver';
+import { openP1Form, openP2Form } from '../driver';
 
 import { displayBoardShips, displayShips } from '../ui';
 import { dom } from '../dom';
@@ -18,17 +12,11 @@ function deactivatePlacement(player, autoPlaceFn) {
     dom.p2AutoBtn.removeEventListener('click', autoPlaceFn);
     dom.p2ManualBtn.removeEventListener('click', openP2Form);
   }
-  startGame();
 }
 
 // Places player's ships randomly on the board
-function autoPlaceShips(event) {
-  let player;
-  if (event.target.id === 'p1Auto') {
-    player = player1;
-  } else if (event.target.id === 'p2Auto') {
-    player = player2;
-  }
+function autoPlaceShips(playerObj) {
+  const player = playerObj;
   player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
   displayBoardShips(player);
   player.isReady = true;
@@ -36,7 +24,7 @@ function autoPlaceShips(event) {
 }
 
 // Place the ships based on coordinate input
-function manualShipPlacement(player, inputObj) {
+function manualShipPlacement(player, inputObj, boardName) {
   const ships = player.unplacedShips;
   const shipLocationsArr = Object.values(inputObj);
   for (let i = 0; i < shipLocationsArr.length; i += 1) {
@@ -55,12 +43,6 @@ function manualShipPlacement(player, inputObj) {
 
     ships[i].boardLocation = location;
     player.playerPlacedShips.push(location);
-    let boardName;
-    if (player === player1) {
-      boardName = 'p1';
-    } else {
-      boardName = 'p2';
-    }
     displayShips(ships[i], boardName);
   }
   for (let i = 0; i < player.playerPlacedShips.length; i += 1) {
