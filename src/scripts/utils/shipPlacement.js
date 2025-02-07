@@ -20,7 +20,6 @@ function autoPlaceShips(playerObj) {
   player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
   displayBoardShips(player);
   player.isReady = true;
-  deactivatePlacement(player, autoPlaceShips);
 }
 
 // Place the ships based on coordinate input
@@ -50,7 +49,6 @@ function manualShipPlacement(player, inputObj, boardName) {
       player.gameBoard.markedLocation.add(JSON.stringify(coordinates));
     });
   }
-  deactivatePlacement(player, autoPlaceShips);
 }
 
 export { deactivatePlacement, autoPlaceShips, manualShipPlacement };

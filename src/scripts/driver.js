@@ -127,6 +127,7 @@ function autoPlacementUtil(event) {
     player = player2;
   }
   autoPlaceShips(player);
+  deactivatePlacement(player, autoPlacementUtil);
   startGame();
 }
 
@@ -138,6 +139,7 @@ function manualPlacementUtil(player, inputObj) {
     boardName = 'p2';
   }
   manualShipPlacement(player, inputObj, boardName);
+  deactivatePlacement(player, autoPlacementUtil);
   startGame();
 }
 
