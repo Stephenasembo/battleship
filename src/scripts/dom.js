@@ -1,4 +1,5 @@
 const dom = (function cacheDom() {
+  const container = document.querySelector('#container');
   const p1Dialog = document.querySelector('#p1Dialog');
   const p2Dialog = document.querySelector('#p2Dialog');
   const p1ManualBtn = document.querySelector('#p1Manual');
@@ -10,6 +11,7 @@ const dom = (function cacheDom() {
   const player2Board = document.querySelector('.two');
 
   return {
+    container,
     p1Dialog,
     p2Dialog,
     p1ManualBtn,

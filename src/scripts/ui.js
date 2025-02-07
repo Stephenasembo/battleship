@@ -1,3 +1,5 @@
+import { dom } from './dom';
+
 function displayBoards(arr) {
   // We only have 2 player boards
   for (let i = 0; i < 2; i += 1) {
@@ -87,9 +89,17 @@ function displayBoardShips(player) {
   }
 }
 
+function displayWinner(winner) {
+  const winnerDiv = document.createElement('div');
+  const winnerPara = document.createElement('p');
+  winnerPara.textContent = `The winner of the game is ${winner}`;
+  winnerDiv.appendChild(winnerPara);
+  dom.container.appendChild(winnerDiv);
+}
 export {
   displayBoards,
   displayScore,
   displayShips,
   displayBoardShips,
+  displayWinner,
 };

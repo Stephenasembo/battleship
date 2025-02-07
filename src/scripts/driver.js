@@ -1,7 +1,7 @@
 import { Player } from './index';
 import '../styles.css';
 import { dom } from './dom';
-import { displayBoards, displayScore } from './ui';
+import { displayBoards, displayScore, displayWinner } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
 
@@ -76,6 +76,13 @@ export default function playGame() {
     if (shot === 'All player ships sunk') {
       spot.textContent = 'x';
       isGameWon = true;
+      let winner;
+      if (player.type === 'human') {
+        winner = 'player1';
+      } else if (player.type === 'computer') {
+        winner = 'player2';
+      }
+      displayWinner(winner);
     }
     return false;
   }
