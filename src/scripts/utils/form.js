@@ -3,20 +3,24 @@ import { readP1UserInput, readP2UserInput } from '../driver';
 
 function cancelInput(event) {
   event.preventDefault();
-  dom.p1Dialog.close();
+  if (event.target.id === 'p1Cancel') {
+    dom.p1Dialog.close();
+  } else {
+    dom.p2Dialog.close();
+  }
 }
 
 function openP1Form() {
   dom.p1Dialog.show();
   const formControls = cacheFormInputs();
-  formControls.p1SubmitBtn.addEventListener('click', readP1UserInput);
+  formControls.p1SubmitBtn.addEventListener('submit', readP1UserInput);
   formControls.p1CancelBtn.addEventListener('click', cancelInput);
 }
 
 function openP2Form() {
   dom.p2Dialog.show();
   const formControls = cacheFormInputs();
-  formControls.p2SubmitBtn.addEventListener('click', readP2UserInput);
+  formControls.p2SubmitBtn.addEventListener('submit', readP2UserInput);
   formControls.p2CancelBtn.addEventListener('click', cancelInput);
 }
 
