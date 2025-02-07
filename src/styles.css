@@ -60,4 +60,21 @@ button {
   padding: 10px;
   border-radius: 16px;
   font-size: 16px;
+  background-color: #1F2937;
+  color: #fff;
+}
+
+#p1Submit, #p1Cancel, #p2Submit, #p2Cancel {
+  padding: 10px;
+  border-radius: 16px;
+  font-size: 16px;
+  margin: 4px;
+  background-color: #1F2937;
+  color: #fff;
+}
+
+#p1ShipPlacement > button:hover, #p2ShipPlacement > button:hover,
+#p1Submit:hover, #p1Cancel:hover, #p2Submit:hover, #p2Cancel:hover {
+  background-color: #9CA3AF;
+  color: #000;
 }
