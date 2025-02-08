@@ -18,7 +18,9 @@ function deactivatePlacement(player, autoPlaceFn) {
 function autoPlaceShips(playerObj) {
   const player = playerObj;
   player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
-  displayBoardShips(player);
+  if (player.type === 'human') {
+    displayBoardShips(player);
+  }
   player.isReady = true;
 }
 
@@ -42,7 +44,9 @@ function manualShipPlacement(player, inputObj, boardName) {
 
     ships[i].boardLocation = location;
     player.playerPlacedShips.push(location);
-    displayShips(ships[i], boardName);
+    if (player.type === 'human') {
+      displayShips(ships[i], boardName);
+    }
   }
   for (let i = 0; i < player.playerPlacedShips.length; i += 1) {
     player.playerPlacedShips[i].forEach((coordinates) => {
