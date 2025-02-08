@@ -96,10 +96,22 @@ function displayWinner(winner) {
   winnerDiv.appendChild(winnerPara);
   dom.container.appendChild(winnerDiv);
 }
+
+function displayStart() {
+  const startPara = document.createElement('p');
+  startPara.textContent = 'Everyone is ready.';
+  startPara.classList.toggle('startPara');
+  dom.container.appendChild(startPara);
+  setTimeout(() => {
+    dom.container.removeChild(startPara);
+  }, 3000);
+}
+
 export {
   displayBoards,
   displayScore,
   displayShips,
   displayBoardShips,
   displayWinner,
+  displayStart,
 };
