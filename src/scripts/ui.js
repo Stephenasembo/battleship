@@ -98,13 +98,17 @@ function displayWinner(winner) {
 }
 
 function displayStart() {
-  const startPara = document.createElement('p');
-  startPara.textContent = 'Everyone is ready.';
-  startPara.classList.toggle('startPara');
-  dom.container.appendChild(startPara);
-  setTimeout(() => {
-    dom.container.removeChild(startPara);
-  }, 3000);
+  dom.infoPara.textContent = 'Everyone is ready to play.';
+}
+
+function displayTurns(playerType) {
+  let name;
+  if (playerType === 'human') {
+    name = 'player1';
+  } else {
+    name = 'player2';
+  }
+  dom.infoPara.textContent = `It's ${name}'s turn`;
 }
 
 export {
@@ -114,4 +118,5 @@ export {
   displayBoardShips,
   displayWinner,
   displayStart,
+  displayTurns,
 };

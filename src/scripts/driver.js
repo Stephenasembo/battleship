@@ -1,7 +1,7 @@
 import { Player } from './index';
 import '../styles.css';
 import { dom } from './dom';
-import { displayBoards, displayScore, displayStart, displayWinner } from './ui';
+import { displayBoards, displayScore, displayStart, displayTurns, displayWinner } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
 
@@ -22,6 +22,7 @@ export default function playGame() {
     } else if (activePlayer === player2) {
       activePlayer = player1;
     }
+    displayTurns(activePlayer.type);
   }
 
   function decodeLocation(locationId) {
@@ -122,8 +123,8 @@ export default function playGame() {
 
 function startGame() {
   if (player1.isReady && player2.isReady) {
-    playGame();
     displayStart();
+    playGame();
   }
 }
 
