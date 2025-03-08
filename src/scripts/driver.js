@@ -1,10 +1,10 @@
 import { Player } from './index';
-import '../styles.css';
+import '../styles/styles.css';
 import { dom } from './dom';
 import { displayBoards, displayScore, displayStart, displayTurns, displayWinner } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
-import '../responsive.css';
+import '../styles/responsive.css';
 
 const player1 = Player('human');
 const player2 = Player('computer');
