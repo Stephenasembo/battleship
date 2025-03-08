@@ -1,0 +1,4 @@
+.shipHit {
+  background-image: url(../assets/explosion.gif);
+  background-size: cover;
+}

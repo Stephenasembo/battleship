@@ -111,6 +111,11 @@ function displayTurns(playerType) {
   dom.infoPara.textContent = `It's ${name}'s turn`;
 }
 
+function displayExplosion(element) {
+  element.classList.toggle('shipHit');
+  setTimeout(() => element.classList.toggle('shipHit'), 3000);
+}
+
 export {
   displayBoards,
   displayScore,
@@ -119,4 +124,5 @@ export {
   displayWinner,
   displayStart,
   displayTurns,
+  displayExplosion,
 };

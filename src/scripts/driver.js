@@ -1,10 +1,11 @@
 import { Player } from './index';
 import '../styles/styles.css';
 import { dom } from './dom';
-import { displayBoards, displayScore, displayStart, displayTurns, displayWinner } from './ui';
+import { displayBoards, displayExplosion, displayScore, displayStart, displayTurns, displayWinner } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
 import '../styles/responsive.css';
+import '../styles/specialEffect.css';
 
 const player1 = Player('human');
 const player2 = Player('computer');
@@ -69,6 +70,7 @@ export default function playGame() {
     displayScore(player, enemy);
     if (shot === 'ship hit') {
       spot.textContent = 'x';
+      displayExplosion(spot);
       return true;
     }
     if (shot === 'missed shot') {
