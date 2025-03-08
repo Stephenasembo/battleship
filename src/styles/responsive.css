@@ -7,3 +7,12 @@
   display: flex;
   flex-direction: column;
 }
+
+@media (min-width: 600px) {
+  .board button {
+    width: 30px;
+  }
+  .board > div {
+    height: 30px;
+  }
+}
