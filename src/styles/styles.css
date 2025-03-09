@@ -19,6 +19,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  vertical-align: middle;
 }
 
 button {
@@ -112,4 +113,8 @@ button {
   background-color: rgb(223 223 84);
   margin: auto;
   padding: 3px;
+}
+
+.winDialog {
+  height: 90vh;
 }
