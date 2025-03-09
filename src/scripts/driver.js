@@ -101,10 +101,20 @@ export default function playGame() {
     };
   }
 
-  function computerPlayer() {
-    const col = Math.floor(Math.random() * 10);
-    const row = Math.floor(Math.random() * 10);
-    const location = [col, row];
+  function computerPlayer(prevShot = null) {
+    let location;
+    if (!prevShot) {
+      const col = Math.floor(Math.random() * 10);
+      const row = Math.floor(Math.random() * 10);
+      location = [col, row];
+      return location;
+    }
+    // Make continuous hits
+    if (prevShot[0] < 9) {
+      location = [(prevShot[0] + 1), prevShot[1]];
+    } else if (prevShot[0] > 0) {
+      location = [(prevShot[0] - 1), prevShot[1]];
+    }
     return location;
   }
 
@@ -128,9 +138,17 @@ export default function playGame() {
       }
     }
     if (activePlayer === player2) {
+      let prevShot;
+      // Get previous successful hit
+      if (isShotValid.status === 'hit') {
+        const hitAreas = Array.from(player1.gameBoard.shipsHit);
+        prevShot = JSON.parse(hitAreas[hitAreas.length - 1]);
+        prevShot[0] = Number(prevShot[0]);
+        prevShot[1] = Number(prevShot[1]);
+      }
       // Timelag for computer play effect
       setTimeout(() => {
-        const computerShot = computerPlayer();
+        const computerShot = computerPlayer(prevShot);
         playRound(null, computerShot);
       }, 3400);
     }
