@@ -72,12 +72,18 @@ export default function playGame() {
     if (shot === 'ship hit') {
       spot.textContent = 'x';
       displayExplosion(spot);
-      return true;
+      return {
+        valid: true,
+        status: 'hit',
+      };
     }
     if (shot === 'missed shot') {
       spot.textContent = 'o';
       displaySplash(spot);
-      return true;
+      return {
+        valid: true,
+        status: 'miss',
+      };
     }
     if (shot === 'All player ships sunk') {
       spot.textContent = 'x';
@@ -90,7 +96,9 @@ export default function playGame() {
       }
       displayWinner(winner);
     }
-    return false;
+    return {
+      valid: false,
+    };
   }
 
   function computerPlayer() {
@@ -112,10 +120,12 @@ export default function playGame() {
       coordinates = playerShot;
     }
     const isShotValid = displayShot(coordinates, activePlayer);
-    if (isShotValid) {
-      deactivateBoards(playRound);
-      switchActivePlayer();
-      activatePlayerBoard(playRound);
+    if (isShotValid.valid) {
+      if (isShotValid.status === 'miss') {
+        deactivateBoards(playRound);
+        switchActivePlayer();
+        activatePlayerBoard(playRound);
+      }
     }
     if (activePlayer === player2) {
       // Timelag for computer play effect
