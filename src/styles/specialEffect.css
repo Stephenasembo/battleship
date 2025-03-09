@@ -1,9 +1,11 @@
 .shipHit {
   background-image: url(../assets/explosion.gif);
   background-size: cover;
+  background-position: center;
 }
 
 .missedHit {
   background-image: url(../assets/water-splash.gif);
   background-size: cover;
+  background-position: center;
 }
