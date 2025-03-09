@@ -117,8 +117,11 @@ export default function playGame() {
       activatePlayerBoard(playRound);
     }
     if (activePlayer === player2) {
-      const computerShot = computerPlayer();
-      playRound(null, computerShot);
+      // Timelag for computer play effect
+      setTimeout(() => {
+        const computerShot = computerPlayer();
+        playRound(null, computerShot);
+      }, 3400);
     }
   }
 
