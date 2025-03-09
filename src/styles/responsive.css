@@ -16,3 +16,9 @@
     height: 30px;
   }
 }
+
+@media (min-width: 1000px) {
+  #turnDialog {
+    margin-left: 30%;
+  }
+}

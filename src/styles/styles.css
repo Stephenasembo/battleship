@@ -95,7 +95,7 @@ button {
   padding: 4px;
   margin: 0px auto;
   font-size: 14px;
-  transition: opacity 3s;
+  transition: visibility 2s;
 }
 
 #turnDialog > p {
@@ -103,5 +103,5 @@ button {
 }
 
 .invisible {
-  opacity: 0;
+  visibility: hidden;
 }

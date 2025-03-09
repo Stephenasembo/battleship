@@ -103,7 +103,6 @@ function displayWinner(winner) {
 }
 
 function displayStart() {
-  dom.infoPara.textContent = 'Everyone is ready to play.';
   dom.turnPara.textContent = 'Everyone is ready to play.';
   dom.turnDialog.classList.toggle('invisible');
 }
@@ -115,7 +114,8 @@ function displayTurns(playerType) {
   } else {
     name = 'player2';
   }
-  dom.infoPara.textContent = `It's ${name}'s turn`;
+  dom.turnPara.textContent = `It's ${name}'s turn`;
+  dom.turnDialog.classList.toggle('invisible');
 }
 
 function displayTurnModal() {
