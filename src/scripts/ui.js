@@ -1,4 +1,9 @@
 import { dom } from './dom';
+import explosion from '../assets/explosion.mp3';
+import splash from '../assets/splash.mp3';
+
+const explosionAudio = new Audio(explosion);
+const splashAudio = new Audio(splash);
 
 function displayBoards(arr) {
   // We only have 2 player boards
@@ -113,11 +118,13 @@ function displayTurns(playerType) {
 
 function displayExplosion(element) {
   element.classList.toggle('shipHit');
+  explosionAudio.play();
   setTimeout(() => element.classList.toggle('shipHit'), 3000);
 }
 
 function displaySplash(element) {
   element.classList.toggle('missedHit');
+  splashAudio.play();
   setTimeout(() => element.classList.toggle('missedHit'), 3000);
 }
 
