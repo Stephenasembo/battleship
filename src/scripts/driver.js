@@ -1,7 +1,7 @@
 import { Player } from './index';
 import '../styles/styles.css';
 import { dom } from './dom';
-import { displayBoards, displayExplosion, displayScore, displaySplash, displayStart, displayTurns, displayWinner } from './ui';
+import { displayBoards, displayExplosion, displayScore, displaySplash, displayStart, displayTurnModal, displayTurns, displayWinner } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
 import '../styles/responsive.css';
@@ -14,6 +14,7 @@ player1.displayBoard = dom.player1Board;
 player2.displayBoard = dom.player2Board;
 
 displayBoards([player1, player2]);
+displayTurnModal();
 
 export default function playGame() {
   let isGameWon = false;

@@ -104,6 +104,8 @@ function displayWinner(winner) {
 
 function displayStart() {
   dom.infoPara.textContent = 'Everyone is ready to play.';
+  dom.turnPara.textContent = 'Everyone is ready to play.';
+  dom.turnDialog.classList.toggle('invisible');
 }
 
 function displayTurns(playerType) {
@@ -114,6 +116,10 @@ function displayTurns(playerType) {
     name = 'player2';
   }
   dom.infoPara.textContent = `It's ${name}'s turn`;
+}
+
+function displayTurnModal() {
+  dom.turnDialog.show();
 }
 
 function displayExplosion(element) {
@@ -138,4 +144,5 @@ export {
   displayTurns,
   displayExplosion,
   displaySplash,
+  displayTurnModal,
 };
