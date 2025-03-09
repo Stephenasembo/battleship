@@ -1,7 +1,7 @@
 import { Player } from './index';
 import '../styles/styles.css';
 import { dom } from './dom';
-import { displayBoards, displayExplosion, displayScore, displayStart, displayTurns, displayWinner } from './ui';
+import { displayBoards, displayExplosion, displayScore, displaySplash, displayStart, displayTurns, displayWinner } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
 import '../styles/responsive.css';
@@ -75,6 +75,7 @@ export default function playGame() {
     }
     if (shot === 'missed shot') {
       spot.textContent = 'o';
+      displaySplash(spot);
       return true;
     }
     if (shot === 'All player ships sunk') {

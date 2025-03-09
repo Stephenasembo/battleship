@@ -2,3 +2,8 @@
   background-image: url(../assets/explosion.gif);
   background-size: cover;
 }
+
+.missedHit {
+  background-image: url(../assets/water-splash.gif);
+  background-size: cover;
+}

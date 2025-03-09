@@ -116,6 +116,11 @@ function displayExplosion(element) {
   setTimeout(() => element.classList.toggle('shipHit'), 3000);
 }
 
+function displaySplash(element) {
+  element.classList.toggle('missedHit');
+  setTimeout(() => element.classList.toggle('missedHit'), 3000);
+}
+
 export {
   displayBoards,
   displayScore,
@@ -125,4 +130,5 @@ export {
   displayStart,
   displayTurns,
   displayExplosion,
+  displaySplash,
 };
