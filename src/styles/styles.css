@@ -91,7 +91,7 @@ button {
   position: absolute;
   top: 5px;
   border-radius: 25px;
-  width: 50%;
+  width: max-content;
   padding: 4px;
   margin: 0px auto;
   font-size: 14px;
