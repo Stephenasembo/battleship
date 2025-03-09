@@ -105,3 +105,11 @@ button {
 .invisible {
   visibility: hidden;
 }
+
+#infoDiv {
+  border: 2px red solid;
+  border-radius: 10px;
+  background-color: rgb(223 223 84);
+  margin: auto;
+  padding: 3px;
+}

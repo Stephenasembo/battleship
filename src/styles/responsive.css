@@ -15,6 +15,9 @@
   .board > div {
     height: 30px;
   }
+  #infoDiv {
+    width: max-content;
+  }
 }
 
 @media (min-width: 1000px) {
