@@ -116,5 +116,16 @@ button {
 }
 
 .winDialog {
-  height: 90vh;
+  text-align: center;
+}
+
+.winImg {
+  height: 100%;
+  width: 100%;
+}
+
+.winDialog > button {
+  padding: 10px;
+  border-radius: 16px;
+  font-size: 16px;
 }

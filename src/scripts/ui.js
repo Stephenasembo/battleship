@@ -1,9 +1,12 @@
 import { dom } from './dom';
 import explosion from '../assets/explosion.mp3';
 import splash from '../assets/splash.mp3';
+import success from '../assets/success.mp3';
+import victory from '../assets/victory.gif';
 
 const explosionAudio = new Audio(explosion);
 const splashAudio = new Audio(splash);
+const successAudio = new Audio(success);
 
 function displayBoards(arr) {
   // We only have 2 player boards
@@ -134,6 +137,31 @@ function displaySplash(element) {
   setTimeout(() => element.classList.toggle('missedHit'), 3000);
 }
 
+function displayWin(winner) {
+  const winDialog = document.createElement('dialog');
+  const winPara = document.createElement('p');
+  const winImg = document.createElement('img');
+  winImg.setAttribute('src', victory);
+  winImg.setAttribute('width', '220');
+  winImg.setAttribute('height', '150');
+  winImg.classList.add('winImg');
+
+  const restartBtn = document.createElement('button');
+  restartBtn.textContent = 'Restart Game';
+
+  winPara.textContent = `
+  Congratulations ${winner}.
+  You won the game`;
+  winDialog.appendChild(winPara);
+  winDialog.appendChild(winImg);
+  winDialog.appendChild(restartBtn);
+
+  winDialog.classList.add('winDialog');
+  dom.container.appendChild(winDialog);
+  winDialog.showModal();
+  successAudio.play();
+}
+
 export {
   displayBoards,
   displayScore,
@@ -145,4 +173,5 @@ export {
   displayExplosion,
   displaySplash,
   displayTurnModal,
+  displayWin,
 };
