@@ -95,6 +95,10 @@ export default function playGame() {
         winner = 'player2';
       }
       displayWinner(winner);
+
+      // Activate restart button
+      const restartBtn = document.querySelector('#restart');
+      restartBtn.addEventListener('click', restartGame);
     }
     return {
       valid: false,
@@ -150,7 +154,7 @@ export default function playGame() {
       setTimeout(() => {
         const computerShot = computerPlayer(prevShot);
         playRound(null, computerShot);
-      }, 3400);
+      }, 1400);
     }
   }
 
@@ -164,15 +168,41 @@ function startGame() {
   }
 }
 
-function autoPlacementUtil(event) {
+function autoPlacementUtil(event = null, restart = null) {
   let player;
-  if (event.target.id === 'p1Auto') {
-    player = player1;
-  } else if (event.target.id === 'p2Auto') {
-    player = player2;
+  if (event) {
+    if (event.target.id === 'p1Auto') {
+      player = player1;
+    } else if (event.target.id === 'p2Auto') {
+      player = player2;
+    }
   }
-  autoPlaceShips(player);
-  deactivatePlacement(player, autoPlacementUtil);
+
+  if (restart) {
+    autoPlaceShips(player1);
+    deactivatePlacement(player1, autoPlacementUtil);
+    autoPlaceShips(player2);
+    deactivatePlacement(player2, autoPlacementUtil);  
+  } else {
+    autoPlaceShips(player);
+    deactivatePlacement(player, autoPlacementUtil);
+    startGame();
+  }
+}
+
+function restartGame() {
+  // Close win dialog
+  const winDialog = document.querySelector('.winDialog');
+  winDialog.close();
+
+  // Clear the marked boards
+  player1.displayBoard.innerHTML = '';
+  player2.displayBoard.innerHTML = '';
+  displayBoards([player1, player2]);
+
+  // Automatically start the game with random ship placement
+  autoPlacementUtil(null, true);
+  dom.turnDialog.classList.toggle('invisible');
   startGame();
 }
 

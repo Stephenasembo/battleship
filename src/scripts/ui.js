@@ -97,14 +97,6 @@ function displayBoardShips(player) {
   }
 }
 
-function displayWinner(winner) {
-  const winnerDiv = document.createElement('div');
-  const winnerPara = document.createElement('p');
-  winnerPara.textContent = `The winner of the game is ${winner}`;
-  winnerDiv.appendChild(winnerPara);
-  dom.container.appendChild(winnerDiv);
-}
-
 function displayStart() {
   dom.turnPara.textContent = 'Everyone is ready to play.';
   dom.turnDialog.classList.toggle('invisible');
@@ -137,7 +129,7 @@ function displaySplash(element) {
   setTimeout(() => element.classList.toggle('missedHit'), 3000);
 }
 
-function displayWin(winner) {
+function displayWinner(winner) {
   const winDialog = document.createElement('dialog');
   const winPara = document.createElement('p');
   const winImg = document.createElement('img');
@@ -148,6 +140,7 @@ function displayWin(winner) {
 
   const restartBtn = document.createElement('button');
   restartBtn.textContent = 'Restart Game';
+  restartBtn.setAttribute('id', 'restart');
 
   winPara.textContent = `
   Congratulations ${winner}.
@@ -173,5 +166,4 @@ export {
   displayExplosion,
   displaySplash,
   displayTurnModal,
-  displayWin,
 };
