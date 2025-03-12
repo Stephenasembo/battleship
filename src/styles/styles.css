@@ -82,10 +82,12 @@ button {
   color: #fff;
 }
 
-#p1ShipPlacement > button:hover, #p2ShipPlacement > button:hover,
-#p1Submit:hover, #p1Cancel:hover, #p2Submit:hover, #p2Cancel:hover {
-  background-color: #9CA3AF;
-  color: #000;
+@media (hover: hover) {
+  #p1ShipPlacement > button:hover, #p2ShipPlacement > button:hover,
+  #p1Submit:hover, #p1Cancel:hover, #p2Submit:hover, #p2Cancel:hover {
+    background-color: #9CA3AF;
+    color: #000;
+  }  
 }
 
 #turnDialog {
