@@ -18,13 +18,10 @@ function deactivatePlacement(player, autoPlaceFn) {
 function autoPlaceShips(playerObj) {
   const player = playerObj;
   player.playerPlacedShips = player.gameBoard.placeShip(player.unplacedShips);
-  // Testing purposes
-  // if (player.type === 'human') {
-  //   displayBoardShips(player);
-  // }
-  displayBoardShips(player);
+  if (player.type === 'human') {
+    displayBoardShips(player);
+  }
   player.isReady = true;
-  console.log(player.playerPlacedShips);
 }
 
 // Place the ships based on coordinate input
