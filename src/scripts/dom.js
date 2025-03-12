@@ -10,6 +10,11 @@ const dom = (function cacheDom() {
   const turnDialog = document.querySelector('#turnDialog');
   const turnPara = document.querySelector('#turnPara');
 
+  const p1HitsPara = document.querySelector('#p1Hits');
+  const p1SunkShipsPara = document.querySelector('#p1SunkShips');
+  const p2HitsPara = document.querySelector('#p1Hits');
+  const p2SunkShipsPara = document.querySelector('#p1SunkShips');
+
   const player1Board = document.querySelector('.one');
   const player2Board = document.querySelector('.two');
 
@@ -26,6 +31,10 @@ const dom = (function cacheDom() {
     infoPara,
     turnDialog,
     turnPara,
+    p1HitsPara,
+    p1SunkShipsPara,
+    p2HitsPara,
+    p2SunkShipsPara,
   };
 }());
 

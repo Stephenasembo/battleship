@@ -7,8 +7,8 @@ import { getUserInput, openP1Form, openP2Form } from './utils/form';
 import '../styles/responsive.css';
 import '../styles/specialEffect.css';
 
-const player1 = Player('human');
-const player2 = Player('computer');
+let player1 = Player('human');
+let player2 = Player('computer');
 
 player1.displayBoard = dom.player1Board;
 player2.displayBoard = dom.player2Board;
@@ -190,10 +190,23 @@ function autoPlacementUtil(event = null, restart = null) {
   }
 }
 
+function resetStats() {
+  dom.p1HitsPara.textContent = 'You have 0 hits on the enemy\'s ships';
+  dom.p1SunkShipsPara.textContent = 'You have sunk 0 enemy ships.';
+  dom.p2HitsPara.textContent = 'You have 0 hits on the enemy\'s ships';
+  dom.p2SunkShipsPara.textContent = 'You have sunk 0 enemy ships.';
+}
+
 function restartGame() {
   // Close win dialog
   const winDialog = document.querySelector('.winDialog');
   winDialog.close();
+
+  player1 = Player('human');
+  player2 = Player('computer');
+
+  player1.displayBoard = dom.player1Board;
+  player2.displayBoard = dom.player2Board;
 
   // Clear the marked boards
   player1.displayBoard.innerHTML = '';
@@ -202,6 +215,7 @@ function restartGame() {
 
   // Automatically start the game with random ship placement
   autoPlacementUtil(null, true);
+  resetStats();
   dom.turnDialog.classList.toggle('invisible');
   startGame();
 }
