@@ -155,6 +155,12 @@ function displayWinner(winner) {
   successAudio.play();
 }
 
+function removeWinDisplay() {
+  const winDialog = document.querySelector('.winDialog');
+  winDialog.close();
+  dom.container.removeChild(winDialog);
+}
+
 export {
   displayBoards,
   displayScore,
@@ -166,4 +172,5 @@ export {
   displayExplosion,
   displaySplash,
   displayTurnModal,
+  removeWinDisplay,
 };

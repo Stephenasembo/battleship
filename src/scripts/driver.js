@@ -1,7 +1,7 @@
 import { Player } from './index';
 import '../styles/styles.css';
 import { dom } from './dom';
-import { displayBoards, displayExplosion, displayScore, displaySplash, displayStart, displayTurnModal, displayTurns, displayWinner } from './ui';
+import { displayBoards, displayExplosion, displayScore, displaySplash, displayStart, displayTurnModal, displayTurns, displayWinner, removeWinDisplay } from './ui';
 import { deactivatePlacement, autoPlaceShips, manualShipPlacement } from './utils/shipPlacement';
 import { getUserInput, openP1Form, openP2Form } from './utils/form';
 import '../styles/responsive.css';
@@ -198,9 +198,7 @@ function resetStats() {
 }
 
 function restartGame() {
-  // Close win dialog
-  const winDialog = document.querySelector('.winDialog');
-  winDialog.close();
+  removeWinDisplay();
 
   player1 = Player('human');
   player2 = Player('computer');
